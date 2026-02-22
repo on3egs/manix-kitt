@@ -1,0 +1,392 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <title>KITT 3D • Knight Rider</title>
+    <style>
+        body {
+            margin: 0;
+            overflow: hidden;
+            font-family: 'Arial', sans-serif;
+        }
+        #info {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            color: white;
+            background: rgba(0,0,0,0.7);
+            padding: 10px 20px;
+            border-radius: 30px;
+            backdrop-filter: blur(5px);
+            border: 1px solid #ff3300;
+            box-shadow: 0 0 20px rgba(255,68,0,0.5);
+            z-index: 10;
+            font-size: 14px;
+            letter-spacing: 1px;
+        }
+        #info span {
+            color: #ff6600;
+            font-weight: bold;
+        }
+        #controls {
+            position: absolute;
+            bottom: 30px;
+            left: 0;
+            width: 100%;
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            flex-wrap: wrap;
+            padding: 10px;
+            z-index: 20;
+            pointer-events: none;
+        }
+        .btn {
+            pointer-events: auto;
+            background: rgba(20,20,20,0.8);
+            backdrop-filter: blur(5px);
+            border: 2px solid #ff5500;
+            color: #ffaa00;
+            font-size: 1.2rem;
+            padding: 12px 25px;
+            border-radius: 50px;
+            font-weight: bold;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            cursor: pointer;
+            transition: 0.3s;
+            box-shadow: 0 0 20px rgba(255,85,0,0.5);
+            text-shadow: 0 0 10px #ff5500;
+            min-width: 140px;
+        }
+        .btn:hover {
+            background: #ff5500;
+            color: black;
+            box-shadow: 0 0 40px #ff5500;
+            transform: scale(1.05);
+            border-color: white;
+        }
+        .btn.special {
+            border-color: #ff0080;
+            box-shadow: 0 0 20px #ff0080;
+            color: #ff80c0;
+        }
+        .btn.special:hover {
+            background: #ff0080;
+            color: black;
+            box-shadow: 0 0 40px #ff0080;
+        }
+        #message {
+            position: absolute;
+            top: 80px;
+            right: 20px;
+            background: rgba(0,0,0,0.8);
+            color: #ffaa00;
+            padding: 15px 25px;
+            border-radius: 40px;
+            border-left: 6px solid #ff5500;
+            font-size: 1.1rem;
+            max-width: 300px;
+            backdrop-filter: blur(5px);
+            box-shadow: 0 0 30px rgba(255,85,0,0.3);
+            z-index: 15;
+            transition: 0.3s;
+        }
+        @media (max-width: 700px) {
+            .btn { font-size: 0.9rem; padding: 10px 15px; min-width: 120px; }
+            #message { font-size: 0.9rem; padding: 10px; right: 10px; top: 70px; max-width: 200px; }
+        }
+    </style>
+</head>
+<body>
+    <div id="info">⚡ KITT 2000 • <span>KNIGHT RIDER</span> • 1984 ⚡</div>
+    <div id="message">Bienvenue, Michael. Système prêt.</div>
+    <div id="controls">
+        <button class="btn" onclick="window.open('https://fr.wikipedia.org/wiki/KITT', '_blank')">KITT</button>
+        <button class="btn" onclick="window.open('https://fr.wikipedia.org/wiki/Knight_Rider', '_blank')">SÉRIE</button>
+        <button class="btn special" onclick="playSound('scanner')">SCANNER</button>
+        <button class="btn special" onclick="playSound('turbo')">TURBO</button>
+        <button class="btn" onclick="window.open('http://192.168.1.4:3000', '_blank')">CHATBOT</button>
+    </div>
+
+    <!-- Inclusion de Three.js -->
+    <script type="importmap">
+        {
+            "imports": {
+                "three": "https://unpkg.com/three@0.128.0/build/three.module.js"
+            }
+        }
+    </script>
+
+    <script type="module">
+        import * as THREE from 'three';
+        import { OrbitControls } from 'https://unpkg.com/three@0.128.0/examples/jsm/controls/OrbitControls.js';
+
+        // --- Initialisation scène ---
+        const scene = new THREE.Scene();
+        scene.background = new THREE.Color(0x050510); // bleu nuit profond
+        scene.fog = new THREE.Fog(0x050510, 30, 100);
+
+        const camera = new THREE.PerspectiveCamera(45, window.innerWidth / window.innerHeight, 0.1, 1000);
+        camera.position.set(8, 4, 15);
+        camera.lookAt(0, 1, 0);
+
+        const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: false });
+        renderer.setSize(window.innerWidth, window.innerHeight);
+        renderer.shadowMap.enabled = true;
+        renderer.shadowMap.type = THREE.PCFSoftShadowMap;
+        renderer.toneMapping = THREE.ReinhardToneMapping;
+        renderer.toneMappingExposure = 1.2;
+        document.body.appendChild(renderer.domElement);
+
+        // Contrôles (commentés pour garder la caméra fixe, mais on peut les activer)
+        // const controls = new OrbitControls(camera, renderer.domElement);
+        // controls.enableDamping = true;
+
+        // --- Lumières ---
+        // Lumière ambiante
+        const ambientLight = new THREE.AmbientLight(0x404060);
+        scene.add(ambientLight);
+
+        // Lumière principale (projecteur)
+        const mainLight = new THREE.DirectionalLight(0xffeedd, 1.5);
+        mainLight.position.set(10, 20, 5);
+        mainLight.castShadow = true;
+        mainLight.receiveShadow = true;
+        mainLight.shadow.mapSize.width = 1024;
+        mainLight.shadow.mapSize.height = 1024;
+        const d = 20;
+        mainLight.shadow.camera.left = -d;
+        mainLight.shadow.camera.right = d;
+        mainLight.shadow.camera.top = d;
+        mainLight.shadow.camera.bottom = -d;
+        mainLight.shadow.camera.near = 1;
+        mainLight.shadow.camera.far = 50;
+        scene.add(mainLight);
+
+        // Lumière d'appoint rouge (pour l'ambiance)
+        const redLight = new THREE.PointLight(0xff3300, 1, 30);
+        redLight.position.set(-3, 2, 5);
+        scene.add(redLight);
+
+        // Lumières des réverbères (simulées par des points lumineux)
+        const streetLightPositions = [
+            [-8, 3, 10], [8, 3, 10], [-8, 3, -10], [8, 3, -10],
+            [-5, 3, 15], [5, 3, 15], [-5, 3, -15], [5, 3, -15]
+        ];
+        streetLightPositions.forEach(pos => {
+            const light = new THREE.PointLight(0xffaa55, 0.8, 20);
+            light.position.set(pos[0], pos[1], pos[2]);
+            scene.add(light);
+        });
+
+        // --- Sol (route) ---
+        const roadMat = new THREE.MeshStandardMaterial({ color: 0x222222, roughness: 0.7, metalness: 0.1 });
+        const road = new THREE.Mesh(new THREE.PlaneGeometry(30, 60), roadMat);
+        road.rotation.x = -Math.PI / 2;
+        road.position.y = -0.01;
+        road.receiveShadow = true;
+        scene.add(road);
+
+        // Marquages au sol (lignes blanches)
+        const lineMat = new THREE.MeshStandardMaterial({ color: 0xffffff, emissive: 0x333333 });
+        for (let z = -25; z <= 25; z += 5) {
+            const line = new THREE.Mesh(new THREE.BoxGeometry(0.5, 0.05, 3), lineMat);
+            line.position.set(0, 0.02, z);
+            line.receiveShadow = true;
+            scene.add(line);
+        }
+
+        // Bâtiments (simples blocs)
+        const buildingMat = new THREE.MeshStandardMaterial({ color: 0x445566, emissive: 0x112233 });
+        const buildingPositions = [
+            [-15, 2, -20], [15, 2, -20], [-15, 2, 20], [15, 2, 20],
+            [-12, 4, -5], [12, 4, -5], [-12, 4, 5], [12, 4, 5]
+        ];
+        buildingPositions.forEach((pos, i) => {
+            const height = 2 + Math.random() * 6;
+            const building = new THREE.Mesh(new THREE.BoxGeometry(4, height, 4), buildingMat);
+            building.position.set(pos[0], height/2, pos[2]);
+            building.castShadow = true;
+            building.receiveShadow = true;
+            scene.add(building);
+            
+            // Fenêtres lumineuses
+            const windowMat = new THREE.MeshStandardMaterial({ color: 0xffaa33, emissive: 0x442200 });
+            for (let j = 0; j < 3; j++) {
+                const windowBox = new THREE.Mesh(new THREE.BoxGeometry(0.8, 0.8, 0.2), windowMat);
+                windowBox.position.set(pos[0] + (j-1)*1.2, height*0.5 + 0.5, pos[2] + 2.1);
+                windowBox.castShadow = true;
+                scene.add(windowBox);
+            }
+        });
+
+        // --- Construction de la voiture KITT (low-poly) ---
+        const carGroup = new THREE.Group();
+
+        // Carrosserie principale
+        const bodyMat = new THREE.MeshStandardMaterial({ color: 0x222222, roughness: 0.3, metalness: 0.8, emissive: 0x111111 });
+        const body = new THREE.Mesh(new THREE.BoxGeometry(2.5, 0.8, 5), bodyMat);
+        body.position.y = 0.6;
+        body.castShadow = true;
+        body.receiveShadow = true;
+        carGroup.add(body);
+
+        // Toit
+        const roofMat = new THREE.MeshStandardMaterial({ color: 0x111111, roughness: 0.2, metalness: 0.9 });
+        const roof = new THREE.Mesh(new THREE.BoxGeometry(1.6, 0.5, 2.2), roofMat);
+        roof.position.set(0, 1.2, -0.3);
+        roof.castShadow = true;
+        roof.receiveShadow = true;
+        carGroup.add(roof);
+
+        // Phare avant (scanner)
+        const scannerMat = new THREE.MeshStandardMaterial({ color: 0xff0000, emissive: 0x550000 });
+        const scanner = new THREE.Mesh(new THREE.BoxGeometry(0.8, 0.3, 0.2), scannerMat);
+        scanner.position.set(0, 0.7, 2.5);
+        scanner.castShadow = true;
+        carGroup.add(scanner);
+
+        // Phares arrière
+        const tailLightMat = new THREE.MeshStandardMaterial({ color: 0xff3300, emissive: 0x330000 });
+        const tailLeft = new THREE.Mesh(new THREE.BoxGeometry(0.4, 0.3, 0.2), tailLightMat);
+        tailLeft.position.set(-0.9, 0.7, -2.5);
+        carGroup.add(tailLeft);
+        const tailRight = new THREE.Mesh(new THREE.BoxGeometry(0.4, 0.3, 0.2), tailLightMat);
+        tailRight.position.set(0.9, 0.7, -2.5);
+        carGroup.add(tailRight);
+
+        // Roues
+        const wheelMat = new THREE.MeshStandardMaterial({ color: 0x111111, roughness: 0.8 });
+        const wheelGeo = new THREE.CylinderGeometry(0.7, 0.7, 0.5, 24);
+        const positions = [
+            [-1.3, 0.4, 1.5],
+            [1.3, 0.4, 1.5],
+            [-1.3, 0.4, -1.5],
+            [1.3, 0.4, -1.5]
+        ];
+        positions.forEach(pos => {
+            const wheel = new THREE.Mesh(wheelGeo, wheelMat);
+            wheel.rotation.z = Math.PI/2;
+            wheel.position.set(pos[0], pos[1], pos[2]);
+            wheel.castShadow = true;
+            wheel.receiveShadow = true;
+            carGroup.add(wheel);
+        });
+
+        // Détails (prises d'air)
+        const ventMat = new THREE.MeshStandardMaterial({ color: 0x333333, emissive: 0x111111 });
+        const vent = new THREE.Mesh(new THREE.BoxGeometry(0.3, 0.1, 1.5), ventMat);
+        vent.position.set(1.1, 0.5, 0);
+        carGroup.add(vent);
+        const vent2 = vent.clone();
+        vent2.position.set(-1.1, 0.5, 0);
+        carGroup.add(vent2);
+
+        // Placer la voiture dans la scène
+        carGroup.position.y = 0.2;
+        carGroup.position.z = 2; // un peu devant
+        scene.add(carGroup);
+
+        // --- Animation du scanner (lumière rouge qui bouge) ---
+        const scannerLight = new THREE.PointLight(0xff0000, 2, 8);
+        scannerLight.position.set(0, 0.9, 2.8);
+        carGroup.add(scannerLight);
+
+        // --- Étoiles / particules (ambiance) ---
+        const starsGeo = new THREE.BufferGeometry();
+        const starsCount = 1000;
+        const starsPos = new Float32Array(starsCount * 3);
+        for (let i = 0; i < starsCount; i++) {
+            starsPos[i*3] = (Math.random() - 0.5) * 200;
+            starsPos[i*3+1] = (Math.random() - 0.5) * 100 + 20;
+            starsPos[i*3+2] = (Math.random() - 0.5) * 200 - 50;
+        }
+        starsGeo.setAttribute('position', new THREE.BufferAttribute(starsPos, 3));
+        const starsMat = new THREE.PointsMaterial({ color: 0x88aaff, size: 0.2, transparent: true });
+        const stars = new THREE.Points(starsGeo, starsMat);
+        scene.add(stars);
+
+        // --- Animation ---
+        let clock = new THREE.Clock();
+
+        function animate() {
+            const delta = clock.getDelta();
+            const elapsedTime = performance.now() / 1000;
+
+            // Mouvement du scanner (va-et-vient)
+            const scanX = Math.sin(elapsedTime * 3) * 0.8;
+            scanner.position.x = scanX;
+            scannerLight.position.x = scanX;
+
+            // Faire clignoter les phares arrière
+            const blink = Math.sin(elapsedTime * 10) > 0 ? 1 : 0.3;
+            tailLeft.material.emissiveIntensity = blink;
+            tailRight.material.emissiveIntensity = blink;
+
+            // Rotation des roues (optionnel)
+            // (pas nécessaire ici)
+
+            // Animation de la caméra (légers mouvements)
+            camera.position.x = Math.sin(elapsedTime * 0.2) * 3;
+            camera.lookAt(0, 1, 2);
+
+            renderer.render(scene, camera);
+            requestAnimationFrame(animate);
+        }
+
+        animate();
+
+        // --- Redimensionnement ---
+        window.addEventListener('resize', onWindowResize, false);
+        function onWindowResize() {
+            camera.aspect = window.innerWidth / window.innerHeight;
+            camera.updateProjectionMatrix();
+            renderer.setSize(window.innerWidth, window.innerHeight);
+        }
+
+        // --- Sons (via Web Audio API) ---
+        window.playSound = function(type) {
+            const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+            const osc = audioCtx.createOscillator();
+            const gain = audioCtx.createGain();
+            osc.connect(gain);
+            gain.connect(audioCtx.destination);
+            
+            const now = audioCtx.currentTime;
+            document.getElementById('message').innerText = type === 'scanner' ? 'Scanner activé...' : 'Turbo boost !';
+            
+            if (type === 'scanner') {
+                osc.type = 'sawtooth';
+                osc.frequency.setValueAtTime(200, now);
+                osc.frequency.exponentialRampToValueAtTime(400, now + 0.2);
+                osc.frequency.exponentialRampToValueAtTime(200, now + 0.4);
+                gain.gain.setValueAtTime(0.3, now);
+                gain.gain.exponentialRampToValueAtTime(0.01, now + 0.5);
+                osc.start(now);
+                osc.stop(now + 0.5);
+            } else {
+                osc.type = 'triangle';
+                osc.frequency.setValueAtTime(100, now);
+                osc.frequency.exponentialRampToValueAtTime(300, now + 0.2);
+                osc.frequency.setValueAtTime(300, now + 0.2);
+                osc.frequency.exponentialRampToValueAtTime(600, now + 0.4);
+                gain.gain.setValueAtTime(0.3, now);
+                gain.gain.exponentialRampToValueAtTime(0.01, now + 0.6);
+                osc.start(now);
+                osc.stop(now + 0.6);
+            }
+            
+            setTimeout(() => {
+                document.getElementById('message').innerText = 'En attente de commande.';
+            }, 2000);
+        };
+
+        // Message initial
+        setTimeout(() => {
+            document.getElementById('message').innerText = 'Système KITT opérationnel.';
+        }, 1000);
+    </script>
+</body>
+</html>
