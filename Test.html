@@ -1,1 +1,517 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>K.I.T.T. - Knight Rider (1982)</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
 
+        body {
+            background-color: #000;
+            background-image: 
+                radial-gradient(circle at 20% 30%, rgba(0, 20, 50, 0.3) 0%, transparent 30%),
+                radial-gradient(circle at 80% 70%, rgba(0, 50, 70, 0.3) 0%, transparent 40%),
+                linear-gradient(180deg, #001020 0%, #000000 100%);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-family: 'Courier New', monospace;
+            color: #0ff;
+            text-shadow: 0 0 10px #0ff, 0 0 20px #0ff;
+            padding: 20px;
+            position: relative;
+            overflow-x: hidden;
+        }
+
+        /* Effet de neige analogique (bruit vintage) */
+        body::before {
+            content: "";
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            background: repeating-radial-gradient(circle at 20% 30%, rgba(255,255,255,0.05) 0px, transparent 2px);
+            pointer-events: none;
+            z-index: 0;
+            animation: staticFlicker 0.5s infinite;
+            opacity: 0.3;
+        }
+
+        @keyframes staticFlicker {
+            0% { opacity: 0.2; }
+            50% { opacity: 0.4; }
+            100% { opacity: 0.2; }
+        }
+
+        .container {
+            position: relative;
+            z-index: 10;
+            max-width: 900px;
+            width: 100%;
+            border: 3px solid #0ff;
+            border-radius: 20px;
+            padding: 30px;
+            background: rgba(0, 10, 20, 0.8);
+            backdrop-filter: blur(5px);
+            box-shadow: 0 0 50px #0ff, inset 0 0 30px #0ff;
+            animation: borderPulse 3s infinite;
+        }
+
+        @keyframes borderPulse {
+            0% { border-color: #0ff; box-shadow: 0 0 50px #0ff, inset 0 0 30px #0ff; }
+            50% { border-color: #f0f; box-shadow: 0 0 70px #f0f, inset 0 0 50px #f0f; }
+            100% { border-color: #0ff; box-shadow: 0 0 50px #0ff, inset 0 0 30px #0ff; }
+        }
+
+        /* Scanner KITT */
+        .kitt-scanner {
+            width: 100%;
+            height: 60px;
+            background: #111;
+            border-radius: 30px;
+            margin: 40px 0;
+            position: relative;
+            overflow: hidden;
+            border: 2px solid #0ff;
+            box-shadow: 0 0 30px #0ff;
+        }
+
+        .scanner-light {
+            width: 100px;
+            height: 100%;
+            background: linear-gradient(90deg, 
+                transparent, 
+                #f00 20%, 
+                #ff5555 50%,
+                #f00 80%,
+                transparent
+            );
+            position: absolute;
+            top: 0;
+            left: -100px;
+            animation: scan 4s infinite ease-in-out;
+            filter: blur(5px);
+            opacity: 0.9;
+            box-shadow: 0 0 40px #f00, 0 0 80px #f00;
+        }
+
+        @keyframes scan {
+            0% { left: -100px; }
+            50% { left: calc(100% - 0px); }
+            100% { left: -100px; }
+        }
+
+        /* Écran principal */
+        .main-screen {
+            background: #000;
+            border: 4px solid #0ff;
+            border-radius: 15px;
+            padding: 20px;
+            margin: 20px 0;
+            min-height: 200px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            font-size: 1.5rem;
+            text-align: center;
+            box-shadow: inset 0 0 40px #0ff;
+            position: relative;
+            background: linear-gradient(145deg, #000811, #000000);
+        }
+
+        .main-screen::after {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: repeating-linear-gradient(0deg, rgba(0,255,255,0.03) 0px, transparent 2px);
+            pointer-events: none;
+        }
+
+        .voice-line {
+            color: #ff66aa;
+            text-shadow: 0 0 10px #ff00ff, 0 0 20px #ff00ff;
+            font-style: italic;
+            margin: 10px 0;
+            font-size: 1.2rem;
+            letter-spacing: 2px;
+        }
+
+        .ai-voice {
+            color: #aaffaa;
+            text-shadow: 0 0 10px #00ff00, 0 0 20px #00ff00;
+            font-weight: bold;
+            margin: 15px 0;
+            font-size: 1.4rem;
+            border-left: 4px solid #0f0;
+            padding-left: 15px;
+        }
+
+        .grid-buttons {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 15px;
+            margin: 30px 0;
+        }
+
+        .kitt-button {
+            background: transparent;
+            border: 2px solid #0ff;
+            color: #0ff;
+            font-family: 'Courier New', monospace;
+            font-size: 1.2rem;
+            padding: 15px;
+            cursor: pointer;
+            border-radius: 10px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            font-weight: bold;
+            transition: all 0.3s;
+            box-shadow: 0 0 15px #0ff;
+            backdrop-filter: blur(5px);
+        }
+
+        .kitt-button:hover {
+            background: #0ff;
+            color: #000;
+            box-shadow: 0 0 40px #0ff;
+            transform: scale(1.05);
+            border-color: #fff;
+        }
+
+        .kitt-button.special {
+            border-color: #f0f;
+            box-shadow: 0 0 20px #f0f;
+            color: #f0f;
+        }
+
+        .kitt-button.special:hover {
+            background: #f0f;
+            color: #000;
+            box-shadow: 0 0 60px #f0f;
+        }
+
+        .status-panel {
+            display: flex;
+            justify-content: space-between;
+            margin: 20px 0;
+            padding: 15px;
+            border: 1px solid #0ff;
+            border-radius: 10px;
+            background: rgba(0, 30, 50, 0.5);
+            font-size: 1.1rem;
+            flex-wrap: wrap;
+        }
+
+        .status-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .led {
+            width: 15px;
+            height: 15px;
+            border-radius: 50%;
+            background: #0ff;
+            box-shadow: 0 0 15px #0ff;
+            animation: ledBlink 1.5s infinite;
+        }
+
+        .led.red {
+            background: #f00;
+            box-shadow: 0 0 15px #f00;
+            animation: ledBlink 1s infinite;
+        }
+
+        @keyframes ledBlink {
+            0% { opacity: 1; }
+            50% { opacity: 0.4; }
+            100% { opacity: 1; }
+        }
+
+        .footer-note {
+            margin-top: 30px;
+            font-size: 0.8rem;
+            text-align: center;
+            color: #6cf;
+            opacity: 0.8;
+            letter-spacing: 1px;
+        }
+
+        /* Message d'information pour les sons */
+        .sound-info {
+            background: rgba(255, 255, 0, 0.2);
+            border: 1px solid #ff0;
+            color: #ff0;
+            padding: 10px;
+            border-radius: 5px;
+            margin: 15px 0;
+            font-size: 0.9rem;
+            text-align: center;
+            text-shadow: 0 0 5px #ff0;
+        }
+
+        /* Animations pour le texte */
+        .glitch {
+            animation: glitch 3s infinite;
+        }
+
+        @keyframes glitch {
+            0%, 100% { transform: translate(0); }
+            95% { transform: translate(-2px, 1px); }
+            96% { transform: translate(2px, -1px); }
+            97% { transform: translate(-1px, 0); }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- En-tête -->
+        <div style="text-align: center; margin-bottom: 20px;">
+            <h1 class="glitch" style="font-size: 3rem; letter-spacing: 5px;">⚡ K.I.T.T. ⚡</h1>
+            <div style="font-size: 1.2rem;">PONTIAC TRANS AM - KNIGHT INDUSTRIES</div>
+            <div style="color: #f0f; font-size: 0.9rem; margin-top: 5px;">1982 • 1984 • SYSTÈME RÉTRO-ACTIF</div>
+        </div>
+
+        <!-- Scanner animé -->
+        <div class="kitt-scanner">
+            <div class="scanner-light"></div>
+        </div>
+
+        <!-- Écran principal avec voix -->
+        <div class="main-screen" id="mainScreen">
+            <div style="color: #ffaa00; text-shadow: 0 0 10px #ff0; font-size: 1rem; align-self: flex-start;">&gt; INTERFACE VOCALE ACTIVE</div>
+            <div class="voice-line" id="voiceLine">"Bonjour Michael, j'espère que vous avez bien dormi."</div>
+            <div class="ai-voice" id="aiVoice">"Je suis KITT, le Système Informatique du Knight Industries Two Thousand. Prêt à vous assister."</div>
+            <div style="margin-top: 15px; font-size: 0.9rem; color: #9cf;" id="statusMessage">Tous les systèmes sont opérationnels.</div>
+        </div>
+
+        <!-- Indication sons (simulés) -->
+        <div class="sound-info" id="soundWarning">
+            🔊 SONS ACTIVÉS (simulation) - Pour les véritables échantillons audio, ajoutez vos fichiers .wav/.mp3
+        </div>
+
+        <!-- Panneau de statut -->
+        <div class="status-panel">
+            <div class="status-item"><span class="led"></span> SRS (Système de pilotage auto)</div>
+            <div class="status-item"><span class="led red"></span> Turbo Boost</div>
+            <div class="status-item"><span class="led"></span> Mode Caméléon</div>
+            <div class="status-item"><span class="led"></span> Micro-écran</div>
+        </div>
+
+        <!-- Boutons de commande vocale -->
+        <div class="grid-buttons">
+            <button class="kitt-button" onclick="playPhrase('michael')">🗣️ "Michael"</button>
+            <button class="kitt-button" onclick="playPhrase('kitt')">🤖 "KITT, je suis là"</button>
+            <button class="kitt-button special" onclick="playPhrase('ai')">👽 "Maman IA 1984"</button>
+            <button class="kitt-button" onclick="playPhrase('scan')">📡 Scanner</button>
+            <button class="kitt-button" onclick="playPhrase('turbo')">💨 Turbo Boost</button>
+            <button class="kitt-button special" onclick="playPhrase('alien')">🛸 Vaisseau Mère</button>
+        </div>
+
+        <!-- Section Sons et effets -->
+        <div style="margin: 20px 0; padding: 15px; border: 1px dashed #f0f; border-radius: 10px;">
+            <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap;">
+                <span style="color: #f0f;">🎛️ GÉNÉRATEUR DE SON (PIPER / S-XOX)</span>
+                <span style="color: #0ff; font-size: 0.8rem;">Fréquence variable</span>
+            </div>
+            <div style="display: flex; gap: 10px; margin-top: 10px; flex-wrap: wrap;">
+                <button class="kitt-button" style="padding: 10px; font-size: 1rem;" onclick="generateSound('pip')">🎵 PIPER (voix aiguë)</button>
+                <button class="kitt-button" style="padding: 10px; font-size: 1rem;" onclick="generateSound('sxox')">🎛️ S-XOX (basse)</button>
+                <button class="kitt-button special" style="padding: 10px; font-size: 1rem;" onclick="generateSound('alien')">🛸 VAISSEAU (effet)</button>
+                <button class="kitt-button" style="padding: 10px; font-size: 1rem;" onclick="stopAllSound()">⏹️ STOP</button>
+            </div>
+        </div>
+
+        <!-- Footer -->
+        <div class="footer-note">
+            KNIGHT RIDER - 1982/1984 • Édition hommage • Interface vocale rétro • IA Maman 1984 incluse
+            <br>⭐ "KITT, j'ai besoin de toi mon vieux copain" ⭐
+        </div>
+    </div>
+
+    <script>
+        // Audio context pour la génération de sons (Piper, S-XOX, vaisseau)
+        let audioCtx = null;
+        let oscillator = null;
+        let gainNode = null;
+        let isPlaying = false;
+
+        // Fonction pour initialiser l'audio context (nécessaire à cause des restrictions navigateur)
+        function initAudio() {
+            if (audioCtx) return;
+            audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+            gainNode = audioCtx.createGain();
+            gainNode.connect(audioCtx.destination);
+        }
+
+        // Fonction pour les phrases (simulation - changerait par de vrais fichiers audio)
+        function playPhrase(phrase) {
+            const screen = document.getElementById('mainScreen');
+            const voiceLine = document.getElementById('voiceLine');
+            const aiVoice = document.getElementById('aiVoice');
+            const statusMsg = document.getElementById('statusMessage');
+
+            // Effet visuel de clic
+            screen.style.transform = 'scale(0.99)';
+            setTimeout(() => screen.style.transform = 'scale(1)', 100);
+
+            // Simulation des réponses vocales (textuelles)
+            switch(phrase) {
+                case 'michael':
+                    voiceLine.innerText = '"Michael, je vous reçois 5/5."';
+                    aiVoice.innerText = 'Système de diagnostic : toutes les fonctions sont nominales.';
+                    statusMsg.innerText = 'Communication vocale avec Michael établie.';
+                    generateSound('pip'); // Petit son d'alerte
+                    break;
+                case 'kitt':
+                    voiceLine.innerText = '"Je suis toujours là, Michael. Que puis-je faire pour vous ?"';
+                    aiVoice.innerText = 'Mémoire centrale : 8 kilooctets disponibles.';
+                    statusMsg.innerText = 'KITT en mode conversation.';
+                    generateSound('sxox');
+                    break;
+                case 'ai':
+                    voiceLine.innerText = '"Maman ?... Est-ce toi ? Les étoiles me parlent."';
+                    aiVoice.innerText = 'CONNEXION IA 1984 ÉTABLIE - PROTOCole Rétro-actif.';
+                    statusMsg.innerText = 'Interface IA Maman (Alien 1979/1984) active.';
+                    generateSound('alien');
+                    break;
+                case 'scan':
+                    voiceLine.innerText = '"Analyse de l\'environnement en cours..."';
+                    aiVoice.innerText = 'Scanner à large spectre activé. 3 véhicules détectés.';
+                    statusMsg.innerText = 'Mode scanner - Fréquence 140 MHz.';
+                    generateSound('pip');
+                    break;
+                case 'turbo':
+                    voiceLine.innerText = '"Turbo Boost prêt ! Accrochez-vous Michael !"';
+                    aiVoice.innerText = 'Injection NOS activée. Déploiement des ailerons.';
+                    statusMsg.innerText = 'Turbo Boost prêt - 800 chevaux.';
+                    generateSound('sxox');
+                    break;
+                case 'alien':
+                    voiceLine.innerText = '"Le vaisseau mère approche... Ils viennent en paix."';
+                    aiVoice.innerText = 'TRADUCTION : "Nous sommes vos enfants perdus".';
+                    statusMsg.innerText = 'Fréquence extraterrestre captée - 1984.';
+                    generateSound('alien');
+                    break;
+                default:
+                    voiceLine.innerText = '"Pardon Michael ? Pouvez-vous répéter ?"';
+                    aiVoice.innerText = 'Commande non reconnue.';
+                    statusMsg.innerText = 'Erreur de transmission.';
+            }
+
+            // Simulation d'un bip sonore court
+            setTimeout(() => {
+                document.getElementById('soundWarning').innerHTML = '🔊 Son émis (simulation) - Utilisez les boutons de génération pour les effets réels.';
+            }, 100);
+        }
+
+        // Générateur de sons (Piper = voix aiguë style IA 80's, S-XOX = basses, Alien = bruitages)
+        function generateSound(type) {
+            initAudio();
+
+            if (isPlaying) {
+                stopAllSound();
+            }
+
+            if (audioCtx.state === 'suspended') {
+                audioCtx.resume();
+            }
+
+            oscillator = audioCtx.createOscillator();
+            gainNode = audioCtx.createGain();
+
+            oscillator.connect(gainNode);
+            gainNode.connect(audioCtx.destination);
+
+            let now = audioCtx.currentTime;
+
+            switch(type) {
+                case 'pip':
+                    // Voix aiguë à la Piper (séquence rapide)
+                    oscillator.type = 'sine';
+                    oscillator.frequency.value = 880; // La aigu
+                    gainNode.gain.setValueAtTime(0.3, now);
+                    gainNode.gain.exponentialRampToValueAtTime(0.01, now + 0.2);
+                    oscillator.start(now);
+                    oscillator.stop(now + 0.2);
+                    break;
+
+                case 'sxox':
+                    // Son plus grave, style S-XOX (basse pulsée)
+                    oscillator.type = 'sawtooth';
+                    oscillator.frequency.value = 110; // La grave
+                    gainNode.gain.setValueAtTime(0.4, now);
+                    gainNode.gain.exponentialRampToValueAtTime(0.2, now + 0.1);
+                    gainNode.gain.exponentialRampToValueAtTime(0.4, now + 0.2);
+                    gainNode.gain.exponentialRampToValueAtTime(0.01, now + 0.5);
+                    oscillator.start(now);
+                    oscillator.stop(now + 0.5);
+                    break;
+
+                case 'alien':
+                    // Son de vaisseau / IA Maman
+                    oscillator.type = 'triangle';
+                    oscillator.frequency.setValueAtTime(220, now); // La
+                    oscillator.frequency.exponentialRampToValueAtTime(110, now + 0.5); // Descente grave
+                    oscillator.frequency.exponentialRampToValueAtTime(440, now + 1.0); // Remontée
+                    gainNode.gain.setValueAtTime(0.3, now);
+                    gainNode.gain.exponentialRampToValueAtTime(0.01, now + 2.0);
+                    oscillator.start(now);
+                    oscillator.stop(now + 2.0);
+                    break;
+            }
+
+            isPlaying = true;
+            oscillator.onended = () => {
+                isPlaying = false;
+                oscillator = null;
+            };
+
+            // Message visuel
+            document.getElementById('soundWarning').innerHTML = `🔊 Son généré : ${type} (Piper/S-XOX)`;
+        }
+
+        function stopAllSound() {
+            if (oscillator) {
+                try {
+                    oscillator.stop();
+                    oscillator.disconnect();
+                } catch(e) {}
+                oscillator = null;
+            }
+            if (gainNode) {
+                gainNode.gain.cancelScheduledValues(audioCtx.currentTime);
+                gainNode.gain.setValueAtTime(0.001, audioCtx.currentTime);
+            }
+            isPlaying = false;
+            document.getElementById('soundWarning').innerHTML = '🔊 Sons arrêtés.';
+        }
+
+        // Petit message de bienvenue en chargeant la page
+        window.onload = function() {
+            setTimeout(() => {
+                document.getElementById('voiceLine').innerText = '"Bienvenue dans le monde de demain, Michael."';
+            }, 1000);
+        };
+
+        // Gestion pour mobile (toucher)
+        document.querySelectorAll('button').forEach(btn => {
+            btn.addEventListener('touchstart', (e) => {
+                e.preventDefault();
+            });
+        });
+    </script>
+</body>
+</html>
