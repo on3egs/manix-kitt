@@ -136,6 +136,32 @@
       max-width: 540px;
       margin: 1rem auto 2rem;
     }
+    /* ── Hero fade-up ── */
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(18px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+    @-webkit-keyframes fadeUp {
+      from { opacity: 0; -webkit-transform: translateY(18px); transform: translateY(18px); }
+      to   { opacity: 1; -webkit-transform: translateY(0);    transform: translateY(0); }
+    }
+    .hero-badge {
+      animation: fadeUp 0.55s ease-out both;
+      -webkit-animation: fadeUp 0.55s ease-out both;
+    }
+    .hero h1 {
+      animation: fadeUp 0.55s ease-out 0.12s both;
+      -webkit-animation: fadeUp 0.55s ease-out 0.12s both;
+    }
+    .hero .subtitle {
+      animation: fadeUp 0.55s ease-out 0.24s both;
+      -webkit-animation: fadeUp 0.55s ease-out 0.24s both;
+    }
+    .hero-tags {
+      animation: fadeUp 0.55s ease-out 0.36s both;
+      -webkit-animation: fadeUp 0.55s ease-out 0.36s both;
+    }
+
     .hero-tags {
       display: flex;
       flex-wrap: wrap;
