@@ -90,6 +90,10 @@
       white-space: nowrap;
     }
     nav a:hover { color: var(--red2); }
+    nav a.active {
+      color: var(--red2);
+      box-shadow: inset 0 -2px 0 var(--red2);
+    }
 
     /* ── Hero ── */
     .hero {
@@ -700,6 +704,7 @@
       <li><strong>2026-02-24</strong> — Hero : sous-titre passe de var(--muted) (#7a8299) a var(--silver) (#c8cdd8) pour meilleure lisibilite (contraste WCAG AA).</li>
       <li><strong>2026-02-24</strong> — Hero : ajout bouton CTA "Découvrir le projet" outline rouge, lien vers #projet, animation fadeUp 0.48s (suite cascade), hover fond rouge.</li>
       <li><strong>2026-02-24</strong> — Section fonctionnalites : remplacement liste a puces par un grid de 12 feat-cards individuelles avec icone SVG inline, titre fort et description muted. Bordure top rouge, hover, grid auto-fit 220px.</li>
+      <li><strong>2026-02-24</strong> — Navigation : indicateur de section active via IntersectionObserver — le lien courant devient rouge avec soulignement box-shadow inset (0 JS librairie, rootMargin -20%/-70% pour detection fiable).</li>
     </ul>
   </section>
 
@@ -719,5 +724,23 @@
   </p>
 </footer>
 
+
+<script>
+(function() {
+  var sections = document.querySelectorAll('section[id]');
+  var navLinks = document.querySelectorAll('nav a[href^="#"]');
+  if (!sections.length || !navLinks.length) return;
+  var obs = new IntersectionObserver(function(entries) {
+    entries.forEach(function(e) {
+      if (e.isIntersecting) {
+        navLinks.forEach(function(a) { a.classList.remove('active'); });
+        var active = document.querySelector('nav a[href="#' + e.target.id + '"]');
+        if (active) active.classList.add('active');
+      }
+    });
+  }, { rootMargin: '-20% 0px -70% 0px' });
+  sections.forEach(function(s) { obs.observe(s); });
+})();
+</script>
 </body>
 </html>
