@@ -118,6 +118,18 @@
       margin-bottom: 0.5rem;
     }
     .hero h1 span { color: var(--red2); }
+    .hero h1::after {
+      content: '';
+      display: block;
+      width: 0;
+      height: 2px;
+      background: var(--red2);
+      margin: 0.6rem auto 0;
+      animation: heroLine 0.9s ease-out 0.4s forwards;
+      -webkit-animation: heroLine 0.9s ease-out 0.4s forwards;
+    }
+    @keyframes heroLine { to { width: 100px; } }
+    @-webkit-keyframes heroLine { to { width: 100px; } }
     .hero .subtitle {
       color: var(--muted);
       font-size: 1rem;
@@ -513,6 +525,7 @@
     <ul class="history-list">
       <li><strong>2026-02-18</strong> — Création initiale de la page. Présentation complète d'Emmanuel Gelinne, projet KITT IA embarquée, réplique véhicule, stack technique et vision.</li>
       <li><strong>2026-02-18</strong> — Mise à jour : performances réelles ajoutées (STT ~300ms GPU, TTS ~490ms GPU, LLM ~1400ms, latence totale ~2,3s). Nouvelles features : monitor WebSocket, tunnel Cloudflare, client terminal. Migration YOLOX-S (Apache 2.0). TTS multilingue GPU optimisé.</li>
+      <li><strong>2026-02-24</strong> — Hero : ajout d'un trait rouge animé sous le titre h1 (pseudo-élément ::after, déploiement 0,9s, compatible Safari -webkit-).</li>
     </ul>
   </section>
 
