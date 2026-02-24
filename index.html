@@ -158,15 +158,12 @@
       -webkit-animation: fadeUp 0.55s ease-out 0.24s both;
     }
     .hero-tags {
-      animation: fadeUp 0.55s ease-out 0.36s both;
-      -webkit-animation: fadeUp 0.55s ease-out 0.36s both;
-    }
-
-    .hero-tags {
       display: flex;
       flex-wrap: wrap;
       gap: 0.5rem;
       justify-content: center;
+      animation: fadeUp 0.55s ease-out 0.36s both;
+      -webkit-animation: fadeUp 0.55s ease-out 0.36s both;
     }
     .tag {
       background: var(--card);
@@ -552,9 +549,8 @@
       <li><strong>2026-02-18</strong> — Création initiale de la page. Présentation complète d'Emmanuel Gelinne, projet KITT IA embarquée, réplique véhicule, stack technique et vision.</li>
       <li><strong>2026-02-18</strong> — Mise à jour : performances réelles ajoutées (STT ~300ms GPU, TTS ~490ms GPU, LLM ~1400ms, latence totale ~2,3s). Nouvelles features : monitor WebSocket, tunnel Cloudflare, client terminal. Migration YOLOX-S (Apache 2.0). TTS multilingue GPU optimisé.</li>
       <li><strong>2026-02-24</strong> — Hero : ajout d'un trait rouge animé sous le titre h1 (pseudo-élément ::after, déploiement 0,9s, compatible Safari -webkit-).</li>
-      <li><strong>2026-02-24</strong> — Hero : sous-titre (.subtitle) passé de var(--muted) (#7a8299) à var(--silver) (#c8cdd8) pour meilleure lisibilité sur fond rouge-noir.</li>
-      <li><strong>2026-02-24</strong> — Hero : animation d'entrée fade-up en cascade sur les 4 éléments (badge 0ms → h1 120ms → subtitle 240ms → tags 360ms), 0 JS, compatible Safari.</li>
-      <li><strong>2026-02-24</strong> — Hero : couleur du sous-titre passée de var(--muted) (#7a8299) à var(--silver) (#c8cdd8) pour améliorer la lisibilité (contraste WCAG AA).</li>
+      <li><strong>2026-02-24</strong> — Hero : sous-titre (.subtitle) passé de var(--muted) à var(--silver) pour meilleure lisibilité sur fond rouge-noir.</li>
+      <li><strong>2026-02-24</strong> — Hero : animation d'entrée fade-up en cascade (badge 0ms → h1 120ms → subtitle 240ms → tags 360ms), 0 JS, compatible Safari. Doublon CSS .hero-tags fusionné.</li>
     </ul>
   </section>
 
