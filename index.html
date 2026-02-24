@@ -166,6 +166,24 @@
       padding: 0.35rem 0.8rem;
       border-radius: 3px;
     }
+    .hero-cta {
+      margin-top: 2rem;
+      animation: fadeUp 0.55s ease-out 0.48s both;
+      -webkit-animation: fadeUp 0.55s ease-out 0.48s both;
+    }
+    .btn-outline {
+      display: inline-block;
+      padding: 0.65rem 1.8rem;
+      border: 1px solid var(--red2);
+      color: var(--red2);
+      text-decoration: none;
+      font-size: 0.82rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      border-radius: 3px;
+      transition: background 0.2s, color 0.2s;
+    }
+    .btn-outline:hover { background: var(--red2); color: #fff; }
 
     /* ── Layout ── */
     .container {
@@ -313,6 +331,9 @@
     <span class="tag">Jetson AI</span>
     <span class="tag">LLM Local</span>
     <span class="tag">Multilingue</span>
+  </div>
+  <div class="hero-cta">
+    <a href="#projet" class="btn-outline">Découvrir le projet &rarr;</a>
   </div>
 </header>
 
@@ -544,6 +565,7 @@
       <li><strong>2026-02-24</strong> — Hero : ajout d'un trait rouge anime sous le titre h1 (pseudo-element ::after, deploiement 0,9s, compatible Safari -webkit-).</li>
       <li><strong>2026-02-24</strong> — Hero : animation fade-up en cascade sur les 4 elements (badge 0ms, h1 120ms, subtitle 240ms, tags 360ms), 0 JS, compatible Safari.</li>
       <li><strong>2026-02-24</strong> — Hero : sous-titre passe de var(--muted) (#7a8299) a var(--silver) (#c8cdd8) pour meilleure lisibilite (contraste WCAG AA).</li>
+      <li><strong>2026-02-24</strong> — Hero : ajout bouton CTA "Découvrir le projet" outline rouge, lien vers #projet, animation fadeUp 0.48s (suite cascade), hover fond rouge.</li>
     </ul>
   </section>
 
