@@ -273,6 +273,43 @@
     }
     .history-list strong { color: var(--silver); }
 
+    /* ── Feature cards (fonctionnalites) ── */
+    .feat-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 0.85rem;
+      margin-bottom: 1rem;
+    }
+    .feat-card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-top: 2px solid var(--red);
+      border-radius: 6px;
+      padding: 1.1rem 1.2rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.35rem;
+      transition: border-color 0.2s;
+    }
+    .feat-card:hover { border-top-color: var(--red2); }
+    .feat-card svg {
+      width: 20px; height: 20px;
+      stroke: var(--red2);
+      fill: none;
+      flex-shrink: 0;
+      margin-bottom: 0.2rem;
+    }
+    .feat-card strong {
+      color: var(--white);
+      font-size: 0.88rem;
+      font-weight: 600;
+    }
+    .feat-card span {
+      color: var(--muted);
+      font-size: 0.78rem;
+      line-height: 1.45;
+    }
+
     /* ── Divider ── */
     .divider {
       border: none;
@@ -389,21 +426,117 @@
     </p>
 
     <h3>Fonctionnalités clés</h3>
-    <div class="card">
-      <ul style="list-style:none; display:grid; grid-template-columns: 1fr 1fr; gap: 0.5rem 1.5rem;">
-        <li>✦ Reconnaissance vocale GPU temps réel (Whisper ~300ms)</li>
-        <li>✦ LLM local Qwen 2.5 — aucun cloud (~1400ms)</li>
-        <li>✦ Synthèse vocale multilingue GPU (fr/en/de/it/pt ~490ms)</li>
-        <li>✦ Personnalité KITT — loyal, analytique, humour</li>
-        <li>✦ Détection d'objets par caméra (YOLOX-S)</li>
-        <li>✦ Commandes vocales et function calling</li>
-        <li>✦ Interface web PWA mobile + client terminal</li>
-        <li>✦ Mémoire persistante entre sessions</li>
-        <li>✦ Effets voix robot (Sox DSP — pitch, overdrive)</li>
-        <li>✦ Monitor WebSocket temps réel</li>
-        <li>✦ Accès distant sécurisé (tunnel Cloudflare)</li>
-        <li>✦ Compatible ZA Elettronica dashboard</li>
-      </ul>
+    <div class="feat-grid">
+
+      <div class="feat-card">
+        <svg viewBox="0 0 24 24" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+          <rect x="9" y="2" width="6" height="11" rx="3"/>
+          <path d="M5 10a7 7 0 0 0 14 0M12 19v3M9 22h6"/>
+        </svg>
+        <strong>Reconnaissance vocale</strong>
+        <span>Whisper GPU CUDA float16 — ~300ms temps réel</span>
+      </div>
+
+      <div class="feat-card">
+        <svg viewBox="0 0 24 24" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+          <rect x="4" y="4" width="16" height="16" rx="2"/>
+          <rect x="9" y="9" width="6" height="6"/>
+          <path d="M9 1v3M15 1v3M9 20v3M15 20v3M1 9h3M1 15h3M20 9h3M20 15h3"/>
+        </svg>
+        <strong>LLM local Qwen 2.5</strong>
+        <span>llama.cpp GPU — ~1 400ms — aucun cloud</span>
+      </div>
+
+      <div class="feat-card">
+        <svg viewBox="0 0 24 24" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+          <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/>
+          <path d="M15.54 8.46a5 5 0 0 1 0 7.07"/>
+          <path d="M19.07 4.93a10 10 0 0 1 0 14.14"/>
+        </svg>
+        <strong>Synthèse vocale GPU</strong>
+        <span>Piper TTS — 5 langues — ~490ms</span>
+      </div>
+
+      <div class="feat-card">
+        <svg viewBox="0 0 24 24" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+          <circle cx="12" cy="8" r="4"/>
+          <path d="M4 20c0-4 3.6-7 8-7s8 3 8 7"/>
+        </svg>
+        <strong>Personnalité KITT</strong>
+        <span>Loyal, analytique, humour — multi-utilisateur</span>
+      </div>
+
+      <div class="feat-card">
+        <svg viewBox="0 0 24 24" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/>
+          <circle cx="12" cy="12" r="3"/>
+        </svg>
+        <strong>Vision par caméra</strong>
+        <span>YOLOX-S — détection objets temps réel</span>
+      </div>
+
+      <div class="feat-card">
+        <svg viewBox="0 0 24 24" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/>
+        </svg>
+        <strong>Function calling</strong>
+        <span>Heure, météo, timer — 0ms, sans LLM</span>
+      </div>
+
+      <div class="feat-card">
+        <svg viewBox="0 0 24 24" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+          <rect x="5" y="2" width="14" height="20" rx="2"/>
+          <path d="M12 18h.01"/>
+        </svg>
+        <strong>Interface web PWA</strong>
+        <span>Mobile-first, scanner animé, dark UI</span>
+      </div>
+
+      <div class="feat-card">
+        <svg viewBox="0 0 24 24" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+          <ellipse cx="12" cy="5" rx="9" ry="3"/>
+          <path d="M3 5v6c0 1.66 4.03 3 9 3s9-1.34 9-3V5"/>
+          <path d="M3 11v6c0 1.66 4.03 3 9 3s9-1.34 9-3v-6"/>
+        </svg>
+        <strong>Mémoire persistante</strong>
+        <span>50 faits — extraction automatique entre sessions</span>
+      </div>
+
+      <div class="feat-card">
+        <svg viewBox="0 0 24 24" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M2 13c4-5 8-5 12 0s8 5 8 0"/>
+          <path d="M2 7c4-5 8-5 12 0s8 5 8 0"/>
+          <path d="M2 19c4-5 8-5 12 0s8 5 8 0"/>
+        </svg>
+        <strong>Effets voix robot</strong>
+        <span>Sox DSP — pitch, overdrive, reverb</span>
+      </div>
+
+      <div class="feat-card">
+        <svg viewBox="0 0 24 24" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+          <polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/>
+        </svg>
+        <strong>Monitor WebSocket</strong>
+        <span>Conversations temps réel, stats en direct</span>
+      </div>
+
+      <div class="feat-card">
+        <svg viewBox="0 0 24 24" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M18 10h-1.26A8 8 0 1 0 9 20h9a5 5 0 0 0 0-10z"/>
+        </svg>
+        <strong>Accès distant sécurisé</strong>
+        <span>Tunnel Cloudflare — HTTPS worldwide</span>
+      </div>
+
+      <div class="feat-card">
+        <svg viewBox="0 0 24 24" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+          <circle cx="12" cy="12" r="10"/>
+          <path d="M12 6v6l4 2"/>
+        </svg>
+        <strong>Dashboard ZA Elettronica</strong>
+        <span>Scanner, voicebox, switchpods Knight 2000</span>
+      </div>
+
     </div>
 
     <h3>Architecture</h3>
@@ -566,6 +699,7 @@
       <li><strong>2026-02-24</strong> — Hero : animation fade-up en cascade sur les 4 elements (badge 0ms, h1 120ms, subtitle 240ms, tags 360ms), 0 JS, compatible Safari.</li>
       <li><strong>2026-02-24</strong> — Hero : sous-titre passe de var(--muted) (#7a8299) a var(--silver) (#c8cdd8) pour meilleure lisibilite (contraste WCAG AA).</li>
       <li><strong>2026-02-24</strong> — Hero : ajout bouton CTA "Découvrir le projet" outline rouge, lien vers #projet, animation fadeUp 0.48s (suite cascade), hover fond rouge.</li>
+      <li><strong>2026-02-24</strong> — Section fonctionnalites : remplacement liste a puces par un grid de 12 feat-cards individuelles avec icone SVG inline, titre fort et description muted. Bordure top rouge, hover, grid auto-fit 220px.</li>
     </ul>
   </section>
 
