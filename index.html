@@ -348,6 +348,19 @@
       font-size: 0.78rem;
       line-height: 1.5;
     }
+    .feat-badge {
+      display: inline-block;
+      font-size: 0.68rem;
+      font-weight: 600;
+      letter-spacing: 0.05em;
+      color: var(--red2);
+      background: rgba(204,34,0,0.10);
+      border: 1px solid rgba(255,51,0,0.22);
+      border-radius: 3px;
+      padding: 0.1rem 0.45rem;
+      margin-top: 0.3rem;
+      align-self: flex-start;
+    }
 
     /* ── Divider ── */
     .divider {
@@ -502,7 +515,8 @@
         </div>
         <div class="feat-body">
           <strong>Reconnaissance vocale</strong>
-          <span>Transcription locale en ~300ms via Whisper — aucun envoi vers un serveur cloud</span>
+          <span>Transcription locale via Whisper — aucun envoi vers un serveur cloud</span>
+          <span class="feat-badge">~300ms</span>
         </div>
       </div>
 
@@ -516,7 +530,8 @@
         </div>
         <div class="feat-body">
           <strong>LLM local Qwen 2.5</strong>
-          <span>Raisonnement embarqué en ~1 400ms — entièrement offline, données privées</span>
+          <span>Raisonnement embarqué entièrement offline — données privées, aucun cloud</span>
+          <span class="feat-badge">~1 400ms</span>
         </div>
       </div>
 
@@ -530,7 +545,8 @@
         </div>
         <div class="feat-body">
           <strong>Synthèse vocale GPU</strong>
-          <span>Voix française naturelle en ~490ms via Piper — 5 langues supportées</span>
+          <span>Voix française naturelle via Piper — 5 langues supportées, rendu GPU</span>
+          <span class="feat-badge">~490ms</span>
         </div>
       </div>
 
@@ -568,7 +584,8 @@
         </div>
         <div class="feat-body">
           <strong>Réponses instantanées</strong>
-          <span>Heure, météo, timer traités en 0ms — sans passer par le LLM</span>
+          <span>Heure, météo, timer traités directement — sans passer par le LLM</span>
+          <span class="feat-badge">0ms</span>
         </div>
       </div>
 
@@ -595,7 +612,8 @@
         </div>
         <div class="feat-body">
           <strong>Mémoire persistante</strong>
-          <span>Retient jusqu'à 50 faits entre les sessions — extraction automatique en conversation</span>
+          <span>Retient les préférences entre les sessions — extraction automatique en conversation</span>
+          <span class="feat-badge">50 faits max</span>
         </div>
       </div>
 
@@ -818,6 +836,7 @@
       <li><strong>2026-02-24</strong> — Hero h1 : separation visuelle de "alias" et "Manix" — "alias" rendu en var(--muted) 0.6em uppercase letterspaced (.alias-word), "Manix" conserve var(--red2). Hierarchie : nom propre dominant, prefixe generique discret.</li>
       <li><strong>2026-02-24</strong> — Hero h1 span "Manix" : ajout text-shadow glow rouge (0 0 18px rgba(255,51,0,0.55), 0 0 40px rgba(255,51,0,0.2)) — effet scanner KITT lumineux, renforce l'identite visuelle sans modifier la structure.</li>
       <li><strong>2026-02-24</strong> — Section fonctionnalites : refonte mise en page feat-cards — layout horizontal (flex-direction:row), icone SVG dans carree rouge semi-transparent (.feat-icon 38px), contenu dans .feat-body, bordure gauche rouge (au lieu de bordure top), minmax 260px, hover background #1e2128. Descriptions reecrites pour etre lisibles par un visiteur non-technique.</li>
+      <li><strong>2026-02-24</strong> — Section fonctionnalites : ajout badges de performance (.feat-badge) sur 5 cards — ~300ms (STT), ~1 400ms (LLM), ~490ms (TTS), 0ms (reponses instantanees), 50 faits max (memoire). Badge rouge semi-transparent, bordure fine, typographie 0.68rem bold. Descriptions ajustees pour ne plus dupliquer la metrique.</li>
       <li><strong>2026-02-24</strong> — Footer : ajout d'une barre de navigation rapide (.footer-nav) avec les 7 ancres + lien "Haut de page" rouge — boutons border arrondi, hover rouge, utile mobile. Contraste disclaimer corrige (#4a5060 -> var(--muted) #7a8299, ratio 3.8:1 vs 2.4:1 avant).</li>
     </ul>
   </section>
