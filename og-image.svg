@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 630" width="1200" height="630">
+  <rect width="1200" height="630" fill="#0a0c12"/>
+  <!-- Grille de fond subtile -->
+  <line x1="0" y1="315" x2="1200" y2="315" stroke="#cc2200" stroke-width="0.5" opacity="0.15"/>
+  <!-- Barre scan rouge -->
+  <rect x="0" y="290" width="1200" height="50" fill="#cc2200" opacity="0.08"/>
+  <rect x="0" y="307" width="420" height="16" rx="8" fill="#cc2200" opacity="0.9"/>
+  <!-- Titre KYRONEX -->
+  <text x="600" y="230" font-family="'Segoe UI',system-ui,sans-serif" font-size="92"
+        font-weight="700" fill="#cc2200" text-anchor="middle" letter-spacing="14">KYRONEX</text>
+  <!-- Sous-titre -->
+  <text x="600" y="295" font-family="'Segoe UI',system-ui,sans-serif" font-size="26"
+        fill="#8090a8" text-anchor="middle" letter-spacing="5">IA EMBARQUEE &amp; KITT VOCAL</text>
+  <!-- Stack technique -->
+  <text x="600" y="385" font-family="'Courier New',monospace" font-size="19"
+        fill="#3a4a5a" text-anchor="middle">NVIDIA Jetson Orin  ·  Qwen 2.5  ·  Whisper  ·  Piper TTS</text>
+  <!-- Ligne séparatrice -->
+  <rect x="400" y="415" width="400" height="1" fill="#cc2200" opacity="0.3"/>
+  <!-- Auteur -->
+  <text x="600" y="455" font-family="'Segoe UI',system-ui,sans-serif" font-size="17"
+        fill="#556677" text-anchor="middle" letter-spacing="1">by Manix — Emmanuel Gelinne — Belgique</text>
+  <!-- URL -->
+  <text x="600" y="590" font-family="'Courier New',monospace" font-size="14"
+        fill="#334455" text-anchor="middle">on3egs.github.io/manix-kitt</text>
+</svg>

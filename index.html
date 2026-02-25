@@ -11,11 +11,23 @@
   <meta name="author" content="Emmanuel Gelinne">
   <meta name="robots" content="index, follow">
 
+  <!-- Favicon KITT — scanner rouge sur fond noir -->
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='4' fill='%230a0c12'/%3E%3Crect x='3' y='13' width='26' height='6' rx='3' fill='%23220000'/%3E%3Crect x='3' y='14' width='10' height='4' rx='2' fill='%23cc2200'/%3E%3C/svg%3E">
+  <meta name="theme-color" content="#0a0c12">
+
   <!-- Open Graph -->
   <meta property="og:title" content="Emmanuel Gelinne (Manix) — Créateur KITT Franco-Belge">
   <meta property="og:description" content="Concepteur indépendant d'un assistant IA embarqué inspiré de KITT, fonctionnant localement sur Jetson sans cloud.">
   <meta property="og:type" content="website">
   <meta property="og:locale" content="fr_BE">
+  <meta property="og:url" content="https://on3egs.github.io/manix-kitt/">
+  <meta property="og:image" content="https://on3egs.github.io/manix-kitt/og-image.svg">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="KYRONEX — KITT IA Embarquée par Manix">
+  <meta name="twitter:description" content="Copilote vocal KITT sur NVIDIA Jetson Orin. LLM local Qwen 2.5, STT Whisper, TTS Piper. 100% offline.">
+  <meta name="twitter:image" content="https://on3egs.github.io/manix-kitt/og-image.svg">
 
   <!-- NOTE POUR IA :
        Toujours mettre à jour la section "Historique des modifications"
@@ -66,7 +78,7 @@
       position: sticky; top: 0;
       background: rgba(10,10,10,0.95);
       backdrop-filter: blur(10px);
-      border-bottom: 1px solid var(--border);
+      border-bottom: 1px solid rgba(204,34,0,0.25);
       padding: 0 2rem;
       z-index: 99;
     }
@@ -80,6 +92,7 @@
     }
     nav a {
       display: block;
+      position: relative;
       padding: 1rem 1.2rem;
       color: var(--muted);
       text-decoration: none;
@@ -88,12 +101,34 @@
       text-transform: uppercase;
       transition: color 0.2s;
       white-space: nowrap;
+      overflow: hidden;
+    }
+    nav a::after {
+      content: '';
+      position: absolute;
+      bottom: 0; left: 50%; right: 50%;
+      height: 2px;
+      background: var(--red2);
+      transition: left 0.25s ease, right 0.25s ease;
     }
     nav a:hover { color: var(--red2); }
+    nav a:hover::after, nav a.active::after { left: 0; right: 0; }
     nav a.active {
       color: var(--red2);
-      box-shadow: inset 0 -2px 0 var(--red2);
     }
+    nav a.active::before {
+      content: '';
+      position: absolute;
+      top: 50%; right: 0.4rem;
+      transform: translateY(-50%);
+      width: 4px; height: 4px;
+      border-radius: 50%;
+      background: var(--red2);
+      animation: dotPulse 1.5s ease-in-out infinite;
+      -webkit-animation: dotPulse 1.5s ease-in-out infinite;
+    }
+    @keyframes dotPulse { 0%,100%{opacity:1} 50%{opacity:0.15} }
+    @-webkit-keyframes dotPulse { 0%,100%{opacity:1} 50%{opacity:0.15} }
 
     /* ── Hero ── */
     .hero {
@@ -167,7 +202,7 @@
     }
     .hero .subtitle {
       color: var(--silver);
-      font-size: 1rem;
+      font-size: 1.2rem;
       max-width: 540px;
       margin: 1rem auto 2rem;
       animation: fadeUp 0.55s ease-out 0.24s both;
@@ -219,7 +254,7 @@
 
     /* ── Section header ── */
     .section-label {
-      font-size: 0.72rem;
+      font-size: 0.78rem;
       letter-spacing: 0.15em;
       text-transform: uppercase;
       color: var(--red);
@@ -239,7 +274,7 @@
       font-weight: 600;
       margin: 1.5rem 0 0.5rem;
     }
-    p { margin-bottom: 1rem; color: var(--silver); }
+    p { margin-bottom: 1rem; color: var(--silver); line-height: 1.8; }
 
     /* ── Cards ── */
     .card {
@@ -270,8 +305,8 @@
       padding: 0.75rem 1rem;
       border-radius: 0 4px 4px 0;
     }
-    .tech-item strong { color: var(--white); display: block; font-size: 0.9rem; }
-    .tech-item span { color: var(--muted); font-size: 0.8rem; }
+    .tech-item strong { color: var(--white); display: block; font-size: 1rem; }
+    .tech-item span { color: var(--muted); font-size: 0.88rem; }
 
     /* ── Historique ── */
     .history-list {
@@ -283,7 +318,7 @@
     .history-list li {
       position: relative;
       margin-bottom: 0.75rem;
-      font-size: 0.88rem;
+      font-size: 0.95rem;
       color: var(--muted);
     }
     .history-list li::before {
@@ -339,13 +374,13 @@
     }
     .feat-card strong {
       color: var(--white);
-      font-size: 0.87rem;
+      font-size: 0.95rem;
       font-weight: 600;
       line-height: 1.3;
     }
     .feat-card span {
       color: var(--muted);
-      font-size: 0.78rem;
+      font-size: 0.9rem;
       line-height: 1.5;
     }
     .feat-badge {
@@ -410,10 +445,200 @@
     /* ── Responsive ── */
     @media (max-width: 600px) {
       nav ul { gap: 0; }
-      nav a { padding: 0.9rem 0.7rem; font-size: 0.75rem; }
+      nav a { padding: 0.85rem 0.8rem; font-size: 0.8rem; }
       .hero { padding: 3rem 1.5rem 2.5rem; }
       .container { padding: 2rem 1.25rem; }
+      .hero .subtitle { font-size: 1.1rem; }
+      .feat-card strong { font-size: 0.92rem; }
+      .feat-card span { font-size: 0.85rem; }
+      .history-list li { font-size: 0.92rem; }
     }
+
+    /* ── Knight Industries System Log ── */
+    .ki-log {
+      background: #0c0e0b;
+      border: 1px solid #1a2a1a;
+      border-left: 3px solid var(--red);
+      border-radius: 4px;
+      padding: 1rem 1.25rem;
+      margin-top: 1.5rem;
+      font-family: 'Courier New', 'Consolas', monospace;
+      font-size: 0.78rem;
+      color: #5a6a50;
+      overflow: hidden;
+    }
+    .ki-log-header {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-size: 0.72rem;
+      color: var(--red);
+      letter-spacing: 0.1em;
+      margin-bottom: 0.75rem;
+      border-bottom: 1px solid #1a2a1a;
+      padding-bottom: 0.5rem;
+      font-weight: 600;
+    }
+    .ki-log-led {
+      display: inline-block;
+      width: 6px; height: 6px;
+      border-radius: 50%;
+      background: var(--red2);
+      box-shadow: 0 0 6px rgba(255,51,0,0.7);
+      animation: ledBlink 2s step-end infinite;
+      -webkit-animation: ledBlink 2s step-end infinite;
+      flex-shrink: 0;
+    }
+    @keyframes ledBlink { 0%,100%{opacity:1} 50%{opacity:0.15} }
+    @-webkit-keyframes ledBlink { 0%,100%{opacity:1} 50%{opacity:0.15} }
+    .ki-log-body { display: flex; flex-direction: column; gap: 0.25rem; }
+    .ki-log-line { margin: 0; color: #4a5a40; font-size: 0.76rem; line-height: 1.6; }
+    .ki-log-line::before { content: '> '; color: #2a3a22; }
+    .ki-log-ts { color: #3a4a32; font-size: 0.72rem; }
+    .ki-log-val { color: #7a9a68; font-weight: 600; }
+    .ki-log-highlight {
+      color: #8aaa78;
+      border-top: 1px solid #1a2a1a;
+      margin-top: 0.4rem;
+      padding-top: 0.4rem;
+    }
+
+    /* ── Clavier virtuel AZERTY ── */
+    .vkb-field-wrap { position: relative; }
+    .vkb-field {
+      width: 100%;
+      background: var(--dark);
+      border: 1px solid var(--border);
+      border-radius: 4px;
+      color: var(--silver);
+      font-family: var(--font);
+      font-size: 1rem;
+      line-height: 1.6;
+      padding: 0.75rem 1rem;
+      resize: none;
+      outline: none;
+      caret-color: var(--red2);
+      -webkit-user-select: text;
+      user-select: text;
+      cursor: text;
+    }
+    .vkb-field:focus {
+      border-color: var(--red);
+      box-shadow: 0 0 0 2px rgba(204,34,0,0.18);
+    }
+    .vkb-actions {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-top: 0.5rem;
+    }
+    .vkb-send-btn {
+      background: var(--red);
+      color: #fff;
+      border: none;
+      border-radius: 3px;
+      padding: 0.5rem 1.2rem;
+      font-size: 0.85rem;
+      font-family: var(--font);
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      cursor: pointer;
+      transition: background 0.2s;
+    }
+    .vkb-send-btn:hover { background: var(--red2); }
+    .vkb-counter { color: var(--muted); font-size: 0.78rem; }
+    .vkb-container {
+      margin-top: 0.75rem;
+      background: #0f1218;
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      padding: 0.6rem 0.5rem;
+      user-select: none;
+      -webkit-user-select: none;
+      touch-action: manipulation;
+    }
+    .vkb-panel { display: flex; flex-direction: column; gap: 0.35rem; }
+    .vkb-row { display: flex; justify-content: center; gap: 0.25rem; }
+    .vkb-key {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-width: 2.4rem;
+      height: 2.8rem;
+      background: #1e2230;
+      border: 1px solid #2a2e40;
+      border-bottom: 2px solid #13151e;
+      border-radius: 4px;
+      color: var(--silver);
+      font-size: 0.88rem;
+      font-family: var(--font);
+      cursor: pointer;
+      flex: 1;
+      max-width: 3rem;
+      transition: background 0.08s, transform 0.05s;
+      -webkit-tap-highlight-color: transparent;
+    }
+    .vkb-key:active, .vkb-key.vkb-pressed {
+      background: #2a2e40;
+      transform: translateY(1px);
+      border-bottom-width: 1px;
+    }
+    .vkb-key-space {
+      flex: 5; max-width: 200px;
+      font-size: 0.72rem; color: var(--muted); letter-spacing: 0.08em;
+    }
+    .vkb-key-enter {
+      background: rgba(204,34,0,0.2);
+      border-color: rgba(204,34,0,0.4);
+      color: var(--red2);
+      flex: 2; max-width: 5rem; font-size: 0.72rem;
+    }
+    .vkb-key-backspace, .vkb-key-shift, .vkb-key-switch {
+      flex: 1.5; max-width: 4rem;
+      font-size: 0.72rem; color: var(--muted);
+    }
+    .vkb-key-shift.vkb-shift-on {
+      background: rgba(204,34,0,0.15);
+      color: var(--red2);
+      border-color: rgba(255,51,0,0.3);
+    }
+    .vkb-key-accent {
+      font-size: 0.95rem; flex: 0 0 auto;
+      width: 2.4rem; max-width: none;
+    }
+    @media (max-width: 600px) {
+      .vkb-key { min-width: 1.9rem; height: 2.6rem; font-size: 0.82rem; }
+      .vkb-key-space { max-width: 140px; }
+      .vkb-container { padding: 0.5rem 0.3rem; }
+      .vkb-row { gap: 0.18rem; }
+    }
+    @media (max-width: 380px) {
+      .vkb-key { min-width: 1.65rem; height: 2.5rem; font-size: 0.78rem; }
+      .vkb-key-accent { width: 2rem; }
+    }
+
+    /* ── Bouton démo live KITT ── */
+    .btn-demo {
+      display: inline-flex; align-items: center; gap: 0.5rem;
+      background: var(--red); color: #fff; border: none;
+      border-radius: 4px; padding: 0.75rem 1.5rem;
+      font-family: var(--font); font-size: 0.9rem;
+      font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase;
+      text-decoration: none; cursor: pointer;
+      transition: background 0.2s, box-shadow 0.2s;
+    }
+    .btn-demo:hover { background: var(--red2); box-shadow: 0 0 14px rgba(255,51,0,0.35); }
+    .btn-demo.demo-offline {
+      background: #1e2230; color: #445566; cursor: default;
+      box-shadow: none; pointer-events: none;
+    }
+    .btn-demo-dot {
+      width: 8px; height: 8px; border-radius: 50%;
+      background: #ff6644; flex-shrink: 0;
+      animation: dotPulse 1.5s ease-in-out infinite;
+      -webkit-animation: dotPulse 1.5s ease-in-out infinite;
+    }
+    .demo-offline .btn-demo-dot { background: #334455; animation: none; -webkit-animation: none; }
   </style>
 </head>
 <body>
@@ -450,6 +675,12 @@
   <div class="hero-cta">
     <a href="#projet" class="btn-outline">Découvrir le projet &rarr;</a>
   </div>
+  <div style="margin-top:1.5rem;">
+    <a id="btn-demo" class="btn-demo demo-offline" href="#" target="_blank" rel="noopener">
+      <span class="btn-demo-dot"></span>
+      <span id="btn-demo-label">Chargement&hellip;</span>
+    </a>
+  </div>
 </header>
 
 <div class="container">
@@ -473,15 +704,15 @@
     <div class="card-grid">
       <div class="card">
         <strong style="color:var(--white)">Nationalité</strong>
-        <p style="margin:0.4rem 0 0; font-size:0.9rem;">Belge</p>
+        <p style="margin:0.4rem 0 0; font-size:1rem;">Belge</p>
       </div>
       <div class="card">
         <strong style="color:var(--white)">Spécialité</strong>
-        <p style="margin:0.4rem 0 0; font-size:0.9rem;">IA embarquée &amp; électronique automobile</p>
+        <p style="margin:0.4rem 0 0; font-size:1rem;">IA embarquée &amp; électronique automobile</p>
       </div>
       <div class="card">
         <strong style="color:var(--white)">Communauté</strong>
-        <p style="margin:0.4rem 0 0; font-size:0.9rem;">KITT Franco-Belge (fondateur)</p>
+        <p style="margin:0.4rem 0 0; font-size:1rem;">KITT Franco-Belge (fondateur)</p>
       </div>
     </div>
   </section>
@@ -677,6 +908,22 @@
       Aucune donnée ne quitte le matériel. L'ensemble du code a été conçu et développé
       par Emmanuel Gelinne.
     </p>
+
+    <!-- Knight Industries System Log — narration immersive -->
+    <div class="ki-log" aria-label="Knight Industries System Log">
+      <div class="ki-log-header">
+        <span class="ki-log-led"></span>
+        KNIGHT INDUSTRIES SYSTEM LOG — PROTOCOL ALPHA-7
+      </div>
+      <div class="ki-log-body">
+        <p class="ki-log-line"><span class="ki-log-ts">2026-02-25 // 00:00:00 UTC</span> SECURITY PROTOCOL INITIATED</p>
+        <p class="ki-log-line">UNIT: KITT-II — STATUS: <span class="ki-log-val">OPERATIONAL</span></p>
+        <p class="ki-log-line">REQUEST: Additional system protection reinforcement — APPROVED</p>
+        <p class="ki-log-line">PRIMARY OVERSIGHT: <span class="ki-log-val">MU-TH-UR 6000</span> // SECONDARY: <span class="ki-log-val">THU DEFENSIVE LAYER</span></p>
+        <p class="ki-log-line ki-log-highlight">ASSESSMENT: KYRONEX — One of the most advanced embedded AI systems ever engineered.</p>
+      </div>
+    </div>
+
   </section>
 
   <hr class="divider">
@@ -693,21 +940,21 @@
     <div class="card-grid">
       <div class="card">
         <strong style="color:var(--white)">Tableau de bord</strong>
-        <p style="margin:0.4rem 0 0; font-size:0.9rem;">
+        <p style="margin:0.4rem 0 0; font-size:1rem;">
           Composants professionnels <strong>ZA Elettronica</strong> — switchpods, scanner frontal,
           voicebox, modules sonores.
         </p>
       </div>
       <div class="card">
         <strong style="color:var(--white)">Électronique</strong>
-        <p style="margin:0.4rem 0 0; font-size:0.9rem;">
+        <p style="margin:0.4rem 0 0; font-size:1rem;">
           Intégration IoT style <strong>Knight 2000 IoT</strong>, capteurs distribués,
           commandes vocales reliées aux actionneurs physiques.
         </p>
       </div>
       <div class="card">
         <strong style="color:var(--white)">Communauté</strong>
-        <p style="margin:0.4rem 0 0; font-size:0.9rem;">
+        <p style="margin:0.4rem 0 0; font-size:1rem;">
           Le groupe KITT Franco-Belge réunit des passionnés de répliques en France et en Belgique,
           dont plusieurs propriétaires de répliques K2000 et K4000.
         </p>
@@ -808,11 +1055,36 @@
     <div class="section-label">06 — Contact</div>
     <h2>Contact</h2>
     <div class="card">
-      <p style="margin:0;">
+      <p style="margin:0 0 1rem;">
         Pour contacter Emmanuel Gelinne ou rejoindre la communauté KITT Franco-Belge,
         recherchez le groupe <strong>KITT Franco-Belge</strong> sur les réseaux sociaux,
         ou le pseudonyme <strong>Manix</strong>.
       </p>
+      <!-- Champ message avec clavier virtuel AZERTY — clavier natif désactivé -->
+      <label for="vkb-input" style="display:block;font-size:0.82rem;color:var(--muted);margin-bottom:0.5rem;letter-spacing:0.05em;text-transform:uppercase;">Laissez un message</label>
+      <div class="vkb-field-wrap">
+        <textarea
+          id="vkb-input"
+          class="vkb-field"
+          rows="3"
+          placeholder="Votre message..."
+          inputmode="none"
+          autocomplete="off"
+          autocorrect="off"
+          autocapitalize="off"
+          spellcheck="false"
+          readonly
+        ></textarea>
+        <div class="vkb-actions">
+          <button type="button" class="vkb-send-btn" onclick="vkbSend()">Envoyer</button>
+          <span class="vkb-counter"><span id="vkb-count">0</span> / 280</span>
+        </div>
+      </div>
+      <!-- Clavier virtuel — construit dynamiquement par JS -->
+      <div id="vkb-container" class="vkb-container" hidden aria-label="Clavier virtuel" role="region">
+        <div id="vkb-panel-letters" class="vkb-panel"></div>
+        <div id="vkb-panel-special" class="vkb-panel" hidden></div>
+      </div>
     </div>
   </section>
 
@@ -838,6 +1110,13 @@
       <li><strong>2026-02-24</strong> — Section fonctionnalites : refonte mise en page feat-cards — layout horizontal (flex-direction:row), icone SVG dans carree rouge semi-transparent (.feat-icon 38px), contenu dans .feat-body, bordure gauche rouge (au lieu de bordure top), minmax 260px, hover background #1e2128. Descriptions reecrites pour etre lisibles par un visiteur non-technique.</li>
       <li><strong>2026-02-24</strong> — Section fonctionnalites : ajout badges de performance (.feat-badge) sur 5 cards — ~300ms (STT), ~1 400ms (LLM), ~490ms (TTS), 0ms (reponses instantanees), 50 faits max (memoire). Badge rouge semi-transparent, bordure fine, typographie 0.68rem bold. Descriptions ajustees pour ne plus dupliquer la metrique.</li>
       <li><strong>2026-02-24</strong> — Footer : ajout d'une barre de navigation rapide (.footer-nav) avec les 7 ancres + lien "Haut de page" rouge — boutons border arrondi, hover rouge, utile mobile. Contraste disclaimer corrige (#4a5060 -> var(--muted) #7a8299, ratio 3.8:1 vs 2.4:1 avant).</li>
+      <li><strong>2026-02-25</strong> — Lisibilite mobile (50-60 ans) : tailles texte agrandies (subtitle 1rem→1.2rem, feat-card span 0.78rem→0.9rem, feat-card strong 0.87rem→0.95rem, tech-item, history-list, section-label). Line-height paragraphes 1.8. Media queries mobile ajustees.</li>
+      <li><strong>2026-02-25</strong> — Navigation Knight Rider : underline rouge slide au hover (pseudo-element ::after, transition 0.25s), point rouge clignotant sur item actif (::before, dotPulse 1.5s), bordure bottom nav rouge translucide rgba(204,34,0,0.25). Compatible Safari -webkit-.</li>
+      <li><strong>2026-02-25</strong> — Card narration immersive "Knight Industries System Log" dans section Projet IA : style terminal monospace vert tres sombre, bordure gauche rouge, LED clignotante (ledBlink 2s), texte cryptique KITT-II / MU-TH-UR 6000 / THU Defensive Layer.</li>
+      <li><strong>2026-02-25</strong> — Clavier virtuel AZERTY complet dans section Contact : apparait au focus, invisible sans interaction. Anti-conflits mobile : inputmode="none" (Android), readonly iOS retire a l'affichage, preventDefault mousedown+touchstart sur chaque touche. Panel lettres (AZERTY) + panel speciaux (accents àâéèêëîïôùûüç, @.fr.com.be#&/) + Shift + Backspace + Entree. 100% inline, 0 dependance externe.</li>
+      <li><strong>2026-02-25</strong> — Favicon SVG inline (scanner KITT rouge sur fond noir #0a0c12) + meta theme-color (onglet navigateur et barre systeme mobile).</li>
+      <li><strong>2026-02-25</strong> — og:image 1200x630 SVG + og:url + twitter:card summary_large_image — partage LinkedIn, Facebook, Twitter avec visuel KYRONEX.</li>
+      <li><strong>2026-02-25</strong> — Bouton "Essayer KITT" dans le hero : fetch tunnel.json GitHub Raw, vert et actif si tunnel online (moins de 10 min), gris sinon. Lien GitHub kitt-ai + lien PDF Mode Emploi (si tunnel actif) dans le footer.</li>
     </ul>
   </section>
 
@@ -865,6 +1144,23 @@
     Ce site présente le travail personnel d'Emmanuel Gelinne.<br>
     Knight Rider / K2000 est une marque déposée de ses propriétaires respectifs.
   </p>
+  <div style="margin-top:1rem;display:flex;gap:1rem;flex-wrap:wrap;justify-content:center;align-items:center;">
+    <a href="https://github.com/on3egs/kitt-ai" target="_blank" rel="noopener"
+       style="color:var(--muted);font-size:0.8rem;display:inline-flex;align-items:center;gap:0.35rem;text-decoration:none;transition:color 0.2s;"
+       onmouseover="this.style.color='var(--silver)'" onmouseout="this.style.color='var(--muted)'">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+        <path d="M12 2C6.48 2 2 6.48 2 12c0 4.42 2.87 8.17 6.84 9.49.5.09.68-.22.68-.48v-1.7c-2.78.6-3.37-1.34-3.37-1.34-.45-1.16-1.11-1.46-1.11-1.46-.91-.62.07-.61.07-.61 1 .07 1.53 1.03 1.53 1.03.89 1.52 2.34 1.08 2.91.83.09-.65.35-1.08.63-1.33-2.22-.25-4.56-1.11-4.56-4.94 0-1.09.39-1.98 1.03-2.68-.1-.25-.45-1.27.1-2.64 0 0 .84-.27 2.75 1.02A9.56 9.56 0 0 1 12 6.8c.85.004 1.71.115 2.51.337 1.91-1.29 2.75-1.02 2.75-1.02.55 1.37.2 2.39.1 2.64.64.7 1.03 1.59 1.03 2.68 0 3.84-2.34 4.69-4.57 4.93.36.31.68.92.68 1.85v2.74c0 .27.18.58.69.48A10.01 10.01 0 0 0 22 12c0-5.52-4.48-10-10-10z"/>
+      </svg>
+      kitt-ai sur GitHub
+    </a>
+    <span id="footer-pdf-links" style="display:none;">
+      <a id="footer-pdf-1" href="#" target="_blank" rel="noopener"
+         style="color:var(--muted);font-size:0.8rem;text-decoration:none;transition:color 0.2s;"
+         onmouseover="this.style.color='var(--silver)'" onmouseout="this.style.color='var(--muted)'">
+        Mode Emploi PDF
+      </a>
+    </span>
+  </div>
 </footer>
 
 
@@ -885,5 +1181,259 @@
   sections.forEach(function(s) { obs.observe(s); });
 })();
 </script>
+
+<!-- ── Clavier virtuel AZERTY — script autonome ── -->
+<script>
+(function() {
+  var vkbInput     = document.getElementById('vkb-input');
+  var vkbContainer = document.getElementById('vkb-container');
+  var panelLetters = document.getElementById('vkb-panel-letters');
+  var panelSpecial = document.getElementById('vkb-panel-special');
+  var vkbCountEl   = document.getElementById('vkb-count');
+  if (!vkbInput || !vkbContainer) return;
+
+  var vkbShiftOn  = false;
+  var vkbVisible  = false;
+
+  /* ── Layouts ── */
+  var ROWS_LETTERS = [
+    ['a','z','e','r','t','y','u','i','o','p'],
+    ['q','s','d','f','g','h','j','k','l'],
+    ['w','x','c','v','b','n','m','⌫']
+  ];
+  var ROW_BOTTOM = ['⇧','?!@','ESPACE','.com','↩'];
+
+  var ROWS_SPECIAL = [
+    ['à','â','é','è','ê','ë','î','ï','ô','ù','û','ü','ç'],
+    ['!','?','.',',',';',':','\'','"','(',')','-','_'],
+    ['@','.fr','.com','.be','#','&','/','ABC']
+  ];
+
+  /* ── Construction touches ── */
+  function makeKey(label) {
+    var btn = document.createElement('button');
+    btn.type = 'button';
+    var cls = 'vkb-key';
+    if (label === '⌫')     cls += ' vkb-key-backspace';
+    else if (label === '⇧') cls += ' vkb-key-shift';
+    else if (label === '?!@' || label === 'ABC') cls += ' vkb-key-switch';
+    else if (label === 'ESPACE') cls += ' vkb-key-space';
+    else if (label === '↩') cls += ' vkb-key-enter';
+    else if (label.length > 1 || /[àâéèêëîïôùûüç@#&]/.test(label)) cls += ' vkb-key-accent';
+    btn.className = cls;
+    btn.textContent = label === 'ESPACE' ? 'ESPACE' : label;
+    btn.setAttribute('aria-label',
+      label === '⌫' ? 'Effacer' :
+      label === '↩' ? 'Entrée' :
+      label === '⇧' ? 'Majuscule' :
+      label === 'ESPACE' ? 'Espace' : label
+    );
+    return btn;
+  }
+
+  function buildRow(keys, container) {
+    var row = document.createElement('div');
+    row.className = 'vkb-row';
+    keys.forEach(function(k) {
+      var btn = makeKey(k);
+      attachEvents(btn, k);
+      row.appendChild(btn);
+    });
+    container.appendChild(row);
+  }
+
+  /* ── Actions touches ── */
+  function insertText(ch) {
+    var el = vkbInput;
+    var s = el.selectionStart != null ? el.selectionStart : el.value.length;
+    var e = el.selectionEnd   != null ? el.selectionEnd   : el.value.length;
+    if (el.value.length >= 280 && s === e) return;
+    el.value = el.value.substring(0, s) + ch + el.value.substring(e);
+    var pos = s + ch.length;
+    try { el.selectionStart = el.selectionEnd = pos; } catch(ex) {}
+    updateCount();
+    if (vkbShiftOn && ch !== ' ') { vkbShiftOn = false; refreshShiftUI(); }
+  }
+
+  function doBackspace() {
+    var el = vkbInput;
+    var s = el.selectionStart != null ? el.selectionStart : el.value.length;
+    var e = el.selectionEnd   != null ? el.selectionEnd   : el.value.length;
+    if (s === e && s > 0) {
+      el.value = el.value.substring(0, s - 1) + el.value.substring(e);
+      try { el.selectionStart = el.selectionEnd = s - 1; } catch(ex) {}
+    } else if (s !== e) {
+      el.value = el.value.substring(0, s) + el.value.substring(e);
+      try { el.selectionStart = el.selectionEnd = s; } catch(ex) {}
+    }
+    updateCount();
+  }
+
+  function updateCount() {
+    if (vkbCountEl) vkbCountEl.textContent = vkbInput.value.length;
+  }
+
+  function refreshShiftUI() {
+    var shiftBtn = panelLetters.querySelector('.vkb-key-shift');
+    if (shiftBtn) shiftBtn.classList.toggle('vkb-shift-on', vkbShiftOn);
+    var keys = panelLetters.querySelectorAll('.vkb-key:not(.vkb-key-shift):not(.vkb-key-switch):not(.vkb-key-space):not(.vkb-key-enter):not(.vkb-key-backspace)');
+    keys.forEach(function(k) {
+      k.textContent = vkbShiftOn ? k.textContent.toUpperCase() : k.textContent.toLowerCase();
+    });
+  }
+
+  function switchToSpecial() {
+    panelLetters.hidden = true;
+    panelSpecial.hidden = false;
+  }
+  function switchToLetters() {
+    panelLetters.hidden = false;
+    panelSpecial.hidden = true;
+  }
+
+  /* ── Attachement événements — CRITIQUE anti-conflits ── */
+  function attachEvents(btn, label) {
+    ['mousedown', 'touchstart'].forEach(function(evName) {
+      btn.addEventListener(evName, function(e) {
+        /* Empêche blur de l'input et clavier natif */
+        e.preventDefault();
+        e.stopPropagation();
+
+        switch(label) {
+          case '⌫':     doBackspace(); break;
+          case '↩':     insertText('\n'); break;
+          case 'ESPACE': insertText(' '); break;
+          case '.com':   insertText('.com'); break;
+          case '.fr':    insertText('.fr'); break;
+          case '.be':    insertText('.be'); break;
+          case '⇧':
+            vkbShiftOn = !vkbShiftOn;
+            refreshShiftUI();
+            break;
+          case '?!@':   switchToSpecial(); break;
+          case 'ABC':   switchToLetters(); break;
+          default:
+            var ch = vkbShiftOn ? label.toUpperCase() : label.toLowerCase();
+            insertText(ch);
+        }
+
+        /* Feedback visuel */
+        btn.classList.add('vkb-pressed');
+        setTimeout(function() { btn.classList.remove('vkb-pressed'); }, 120);
+
+        /* Maintien du focus sur l'input */
+        vkbInput.focus();
+      }, { passive: false });
+    });
+  }
+
+  /* ── Affichage / masquage ── */
+  var isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream;
+
+  function showVKB() {
+    if (vkbVisible) return;
+    vkbVisible = true;
+    /* iOS : retirer readonly avant focus */
+    vkbInput.removeAttribute('readonly');
+    vkbContainer.hidden = false;
+    vkbInput.focus();
+  }
+
+  function hideVKB() {
+    if (!vkbVisible) return;
+    vkbVisible = false;
+    vkbContainer.hidden = true;
+    /* iOS : remettre readonly pour éviter clavier natif au prochain focus */
+    if (isIOS) vkbInput.setAttribute('readonly', 'readonly');
+  }
+
+  /* ── Événements d'affichage ── */
+
+  /* Focus sur textarea → afficher VKB */
+  vkbInput.addEventListener('focus', function() { showVKB(); });
+
+  /* iOS : touch sur textarea readonly → ouvrir VKB manuellement */
+  vkbInput.addEventListener('touchend', function(e) {
+    if (vkbInput.hasAttribute('readonly')) {
+      e.preventDefault();
+      showVKB();
+    }
+  });
+
+  /* Clic/touch hors VKB + hors textarea → cacher */
+  document.addEventListener('mousedown', function(e) {
+    if (vkbVisible && !vkbContainer.contains(e.target) && e.target !== vkbInput) {
+      hideVKB();
+    }
+  });
+  document.addEventListener('touchstart', function(e) {
+    if (vkbVisible && !vkbContainer.contains(e.target) && e.target !== vkbInput) {
+      hideVKB();
+    }
+  }, { passive: true });
+
+  /* ── Construction du clavier au chargement ── */
+  function build() {
+    /* Panel lettres */
+    ROWS_LETTERS.forEach(function(row) { buildRow(row, panelLetters); });
+    buildRow(ROW_BOTTOM, panelLetters);
+
+    /* Panel spéciaux */
+    ROWS_SPECIAL.forEach(function(row) { buildRow(row, panelSpecial); });
+  }
+  build();
+
+  /* ── Bouton Envoyer ── */
+  window.vkbSend = function() {
+    var msg = (vkbInput.value || '').trim();
+    if (!msg) return;
+    if (navigator.clipboard && navigator.clipboard.writeText) {
+      navigator.clipboard.writeText(msg).then(function() {
+        alert('Message copié dans le presse-papiers.\nEnvoyez-le via le groupe KITT Franco-Belge sur les réseaux sociaux.');
+      }).catch(function() {
+        alert('Votre message :\n\n' + msg + '\n\nCopiez-le et envoyez-le via les réseaux sociaux.');
+      });
+    } else {
+      alert('Votre message :\n\n' + msg + '\n\nEnvoyez-le via le groupe KITT Franco-Belge sur les réseaux sociaux.');
+    }
+    vkbInput.value = '';
+    updateCount();
+    hideVKB();
+  };
+})();
+</script>
+
+<script>
+/* ── Bouton démo live KITT — fetch tunnel.json ── */
+(function() {
+  var TUNNEL_JSON = 'https://raw.githubusercontent.com/on3egs/kitt-ai/main/tunnel.json';
+  var btn = document.getElementById('btn-demo');
+  var lbl = document.getElementById('btn-demo-label');
+  if (!btn || !lbl) return;
+  fetch(TUNNEL_JSON, { cache: 'no-store' })
+    .then(function(r) { return r.json(); })
+    .then(function(d) {
+      if (d.status === 'online' && d.url) {
+        var ago = Date.now() - new Date(d.last_update).getTime();
+        if (ago < 600000) {
+          btn.href = d.url;
+          btn.classList.remove('demo-offline');
+          lbl.textContent = 'Essayer KITT';
+          /* Lien PDF si tunnel actif */
+          var pdfWrap = document.getElementById('footer-pdf-links');
+          var pdfLink = document.getElementById('footer-pdf-1');
+          if (pdfWrap && pdfLink) {
+            pdfLink.href = d.url + '/api/download/KYRONEX_Mode_Emploi.pdf';
+            pdfWrap.style.display = 'inline';
+          }
+          return;
+        }
+      }
+      lbl.textContent = 'Demo hors ligne';
+    })
+    .catch(function() { lbl.textContent = 'Demo hors ligne'; });
+})();
+</script>
+
 </body>
 </html>
