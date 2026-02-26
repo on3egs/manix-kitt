@@ -1,0 +1,589 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <!-- SEO -->
+  <title>Emmanuel Gelinne (Manix) — Créateur KITT Franco-Belge | IA Embarquée Knight Rider</title>
+  <meta name="description" content="Emmanuel Gelinne, alias Manix, fondateur du groupe KITT Franco-Belge. Concepteur d'un système IA embarquée inspiré de KITT sur Jetson, avec reconnaissance vocale, LLM local et synthèse vocale multilingue.">
+  <meta name="keywords" content="Emmanuel Gelinne, Manix, KITT Franco-Belge, réplique KITT, IA embarquée, Knight Rider, copilote vocal, Jetson AI, K2000">
+  <meta name="author" content="Emmanuel Gelinne">
+  <meta name="robots" content="index, follow">
+
+  <!-- Open Graph -->
+  <meta property="og:title" content="Emmanuel Gelinne (Manix) — Créateur KITT Franco-Belge">
+  <meta property="og:description" content="Concepteur indépendant d'un assistant IA embarqué inspiré de KITT, fonctionnant localement sur Jetson sans cloud.">
+  <meta property="og:type" content="website">
+  <meta property="og:locale" content="fr_BE">
+
+  <!-- NOTE POUR IA :
+       Toujours mettre à jour la section "Historique des modifications"
+       avant de livrer une nouvelle version de ce fichier.
+       Format : <li><strong>AAAA-MM-JJ</strong> — Description du changement</li>
+  -->
+
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --black:   #0a0a0a;
+      --dark:    #111318;
+      --card:    #1a1d24;
+      --border:  #2a2e38;
+      --red:     #cc2200;
+      --red2:    #ff3300;
+      --silver:  #c8cdd8;
+      --white:   #f0f2f5;
+      --muted:   #7a8299;
+      --font:    'Segoe UI', system-ui, sans-serif;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--black);
+      color: var(--silver);
+      font-family: var(--font);
+      font-size: 16px;
+      line-height: 1.7;
+    }
+
+    /* ── Scanner bar animée ── */
+    .scanner-bar {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      height: 3px;
+      background: linear-gradient(90deg, transparent 0%, var(--red2) 50%, transparent 100%);
+      background-size: 200% 100%;
+      animation: scan 3s linear infinite;
+      z-index: 100;
+    }
+    @keyframes scan { 0% { background-position: 200% 0; } 100% { background-position: -200% 0; } }
+
+    /* ── Navigation ── */
+    nav {
+      position: sticky; top: 0;
+      background: rgba(10,10,10,0.95);
+      backdrop-filter: blur(10px);
+      border-bottom: 1px solid var(--border);
+      padding: 0 2rem;
+      z-index: 99;
+    }
+    nav ul {
+      list-style: none;
+      display: flex;
+      gap: 0;
+      max-width: 900px;
+      margin: 0 auto;
+      overflow-x: auto;
+    }
+    nav a {
+      display: block;
+      padding: 1rem 1.2rem;
+      color: var(--muted);
+      text-decoration: none;
+      font-size: 0.82rem;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      transition: color 0.2s;
+      white-space: nowrap;
+    }
+    nav a:hover { color: var(--red2); }
+
+    /* ── Hero ── */
+    .hero {
+      background: linear-gradient(160deg, #0d0f14 0%, #1a0000 100%);
+      border-bottom: 1px solid var(--border);
+      padding: 5rem 2rem 4rem;
+      text-align: center;
+    }
+    .hero-badge {
+      display: inline-block;
+      background: var(--red);
+      color: #fff;
+      font-size: 0.72rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      padding: 0.3rem 0.9rem;
+      border-radius: 2px;
+      margin-bottom: 1.5rem;
+      animation: fadeUp 0.55s ease-out 0s both;
+      -webkit-animation: fadeUp 0.55s ease-out 0s both;
+    }
+    .hero h1 {
+      font-size: clamp(1.8rem, 5vw, 3rem);
+      color: var(--white);
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      line-height: 1.2;
+      margin-bottom: 0.5rem;
+      animation: fadeUp 0.55s ease-out 0.12s both;
+      -webkit-animation: fadeUp 0.55s ease-out 0.12s both;
+    }
+    .hero h1 span { color: var(--red2); }
+    .hero h1::after {
+      content: '';
+      display: block;
+      height: 2px;
+      width: 0;
+      background: var(--red2);
+      margin: 0.4rem auto 0;
+      animation: heroLine 0.9s ease-out 0.4s forwards;
+      -webkit-animation: heroLine 0.9s ease-out 0.4s forwards;
+    }
+    @keyframes heroLine { to { width: 100px; } }
+    @-webkit-keyframes heroLine { to { width: 100px; } }
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(16px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+    @-webkit-keyframes fadeUp {
+      from { opacity: 0; -webkit-transform: translateY(16px); }
+      to   { opacity: 1; -webkit-transform: translateY(0); }
+    }
+    .hero .subtitle {
+      color: var(--silver);
+      font-size: 1rem;
+      max-width: 540px;
+      margin: 1rem auto 2rem;
+      animation: fadeUp 0.55s ease-out 0.24s both;
+      -webkit-animation: fadeUp 0.55s ease-out 0.24s both;
+    }
+    .hero-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+      justify-content: center;
+      animation: fadeUp 0.55s ease-out 0.36s both;
+      -webkit-animation: fadeUp 0.55s ease-out 0.36s both;
+    }
+    .tag {
+      background: var(--card);
+      border: 1px solid var(--border);
+      color: var(--silver);
+      font-size: 0.78rem;
+      padding: 0.35rem 0.8rem;
+      border-radius: 3px;
+    }
+    .hero-cta {
+      margin-top: 2rem;
+      animation: fadeUp 0.55s ease-out 0.48s both;
+      -webkit-animation: fadeUp 0.55s ease-out 0.48s both;
+    }
+    .btn-outline {
+      display: inline-block;
+      padding: 0.65rem 1.8rem;
+      border: 1px solid var(--red2);
+      color: var(--red2);
+      text-decoration: none;
+      font-size: 0.82rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      border-radius: 3px;
+      transition: background 0.2s, color 0.2s;
+    }
+    .btn-outline:hover { background: var(--red2); color: #fff; }
+
+    /* ── Layout ── */
+    .container {
+      max-width: 860px;
+      margin: 0 auto;
+      padding: 3rem 2rem;
+    }
+
+    section { margin-bottom: 0; }
+
+    /* ── Section header ── */
+    .section-label {
+      font-size: 0.72rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--red);
+      margin-bottom: 0.4rem;
+    }
+    h2 {
+      font-size: 1.6rem;
+      color: var(--white);
+      font-weight: 600;
+      margin-bottom: 1.5rem;
+      padding-bottom: 0.75rem;
+      border-bottom: 1px solid var(--border);
+    }
+    h3 {
+      color: var(--white);
+      font-size: 1.05rem;
+      font-weight: 600;
+      margin: 1.5rem 0 0.5rem;
+    }
+    p { margin-bottom: 1rem; color: var(--silver); }
+
+    /* ── Cards ── */
+    .card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      padding: 1.5rem;
+      margin-bottom: 1rem;
+    }
+    .card-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 1rem;
+      margin-bottom: 1rem;
+    }
+
+    /* ── Tech list ── */
+    .tech-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      gap: 0.75rem;
+      margin: 1rem 0;
+    }
+    .tech-item {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-left: 3px solid var(--red);
+      padding: 0.75rem 1rem;
+      border-radius: 0 4px 4px 0;
+    }
+    .tech-item strong { color: var(--white); display: block; font-size: 0.9rem; }
+    .tech-item span { color: var(--muted); font-size: 0.8rem; }
+
+    /* ── Historique ── */
+    .history-list {
+      list-style: none;
+      border-left: 2px solid var(--border);
+      padding-left: 1.5rem;
+      margin-top: 1rem;
+    }
+    .history-list li {
+      position: relative;
+      margin-bottom: 0.75rem;
+      font-size: 0.88rem;
+      color: var(--muted);
+    }
+    .history-list li::before {
+      content: '';
+      position: absolute;
+      left: -1.65rem; top: 0.45rem;
+      width: 8px; height: 8px;
+      border-radius: 50%;
+      background: var(--red);
+    }
+    .history-list strong { color: var(--silver); }
+
+    /* ── Divider ── */
+    .divider {
+      border: none;
+      border-top: 1px solid var(--border);
+      margin: 3rem 0;
+    }
+
+    /* ── Footer ── */
+    footer {
+      background: var(--dark);
+      border-top: 1px solid var(--border);
+      text-align: center;
+      padding: 2rem;
+      color: var(--muted);
+      font-size: 0.82rem;
+    }
+    footer a { color: var(--muted); text-decoration: none; }
+    footer a:hover { color: var(--red2); }
+
+    /* ── Responsive ── */
+    @media (max-width: 600px) {
+      nav ul { gap: 0; }
+      nav a { padding: 0.9rem 0.7rem; font-size: 0.75rem; }
+      .hero { padding: 3rem 1.5rem 2.5rem; }
+      .container { padding: 2rem 1.25rem; }
+    }
+  </style>
+</head>
+<body>
+
+<div class="scanner-bar"></div>
+
+<nav>
+  <ul>
+    <li><a href="#presentation">Présentation</a></li>
+    <li><a href="#projet">Projet IA</a></li>
+    <li><a href="#replique">Réplique</a></li>
+    <li><a href="#technologies">Technologies</a></li>
+    <li><a href="#vision">Vision</a></li>
+    <li><a href="#contact">Contact</a></li>
+    <li><a href="#historique">Historique</a></li>
+  </ul>
+</nav>
+
+<!-- ── Hero ── -->
+<header class="hero">
+  <div class="hero-badge">KITT Franco-Belge</div>
+  <h1>Emmanuel Gelinne<br><span>alias Manix</span></h1>
+  <p class="subtitle">
+    Concepteur indépendant — IA embarquée automobile &amp; répliques Knight Rider
+  </p>
+  <div class="hero-tags">
+    <span class="tag">Belgique</span>
+    <span class="tag">IA Embarquée</span>
+    <span class="tag">Knight Rider / K2000</span>
+    <span class="tag">Jetson AI</span>
+    <span class="tag">LLM Local</span>
+    <span class="tag">Multilingue</span>
+  </div>
+  <div class="hero-cta">
+    <a href="#projet" class="btn-outline">Découvrir le projet &rarr;</a>
+  </div>
+</header>
+
+<div class="container">
+
+  <!-- ── Présentation ── -->
+  <section id="presentation">
+    <div class="section-label">01 — Qui est-il</div>
+    <h2>Présentation</h2>
+    <p>
+      Emmanuel Gelinne, connu sous le pseudonyme <strong>Manix</strong>, est un passionné belge d'électronique,
+      d'intelligence artificielle embarquée et de l'univers <em>Knight Rider</em> (K2000).
+      Il est le <strong>fondateur du groupe KITT Franco-Belge</strong>, une communauté de passionnés
+      de répliques et de systèmes embarqués inspirés de la série télévisée.
+    </p>
+    <p>
+      Autodidacte et concepteur indépendant, il conjugue une expertise en électronique embarquée,
+      en systèmes IoT et en intelligence artificielle pour créer des projets concrets, fonctionnels
+      et techniquement ambitieux.
+    </p>
+
+    <div class="card-grid">
+      <div class="card">
+        <strong style="color:var(--white)">Nationalité</strong>
+        <p style="margin:0.4rem 0 0; font-size:0.9rem;">Belge</p>
+      </div>
+      <div class="card">
+        <strong style="color:var(--white)">Spécialité</strong>
+        <p style="margin:0.4rem 0 0; font-size:0.9rem;">IA embarquée &amp; électronique automobile</p>
+      </div>
+      <div class="card">
+        <strong style="color:var(--white)">Communauté</strong>
+        <p style="margin:0.4rem 0 0; font-size:0.9rem;">KITT Franco-Belge (fondateur)</p>
+      </div>
+    </div>
+  </section>
+
+  <hr class="divider">
+
+  <!-- ── Projet IA ── -->
+  <section id="projet">
+    <div class="section-label">02 — Projet principal</div>
+    <h2>KITT — Copilote vocal IA embarqué</h2>
+    <p>
+      Emmanuel Gelinne est le <strong>créateur et concepteur principal</strong> d'un système
+      de copilote vocal inspiré de KITT, fonctionnant intégralement en local sur matériel embarqué
+      <strong>NVIDIA Jetson</strong>, sans aucune dépendance à un service cloud.
+    </p>
+    <p>
+      Le système reproduit le comportement d'un assistant embarqué intelligent : il comprend
+      la parole en temps réel, raisonne avec un modèle de langage local, répond avec une voix
+      synthétique à effet robotique, et interagit avec l'environnement électronique du véhicule.
+    </p>
+
+    <h3>Fonctionnalités clés</h3>
+    <div class="card">
+      <ul style="list-style:none; display:grid; grid-template-columns: 1fr 1fr; gap: 0.5rem 1.5rem;">
+        <li>✦ Reconnaissance vocale GPU temps réel (Whisper ~300ms)</li>
+        <li>✦ LLM local Qwen 2.5 — aucun cloud (~1400ms)</li>
+        <li>✦ Synthèse vocale multilingue GPU (fr/en/de/it/pt ~490ms)</li>
+        <li>✦ Personnalité KITT — loyal, analytique, humour</li>
+        <li>✦ Détection d'objets par caméra (YOLOX-S)</li>
+        <li>✦ Commandes vocales et function calling</li>
+        <li>✦ Interface web PWA mobile + client terminal</li>
+        <li>✦ Mémoire persistante entre sessions</li>
+        <li>✦ Effets voix robot (Sox DSP — pitch, overdrive)</li>
+        <li>✦ Monitor WebSocket temps réel</li>
+        <li>✦ Accès distant sécurisé (tunnel Cloudflare)</li>
+        <li>✦ Compatible ZA Elettronica dashboard</li>
+      </ul>
+    </div>
+
+    <h3>Architecture</h3>
+    <p>
+      Le système repose sur un pipeline entièrement local : microphone → STT (Whisper GPU ~300ms) → LLM (Qwen 2.5 ~1400ms) → TTS (Piper GPU ~490ms) → haut-parleurs.
+      La latence totale est d'environ <strong>2,3 secondes</strong> sur Jetson Orin Nano Super 8GB.
+      Aucune donnée ne quitte le matériel. L'ensemble du code a été conçu et développé
+      par Emmanuel Gelinne.
+    </p>
+  </section>
+
+  <hr class="divider">
+
+  <!-- ── Réplique ── -->
+  <section id="replique">
+    <div class="section-label">03 — Véhicule</div>
+    <h2>Réplique physique inspirée de KITT</h2>
+    <p>
+      En parallèle du système logiciel, Emmanuel Gelinne travaille sur une <strong>réplique
+      physique</strong> inspirée de la Pontiac Trans Am 1982 de la série Knight Rider.
+      Ce projet combine électronique embarquée, interface tableau de bord et intégration IA.
+    </p>
+    <div class="card-grid">
+      <div class="card">
+        <strong style="color:var(--white)">Tableau de bord</strong>
+        <p style="margin:0.4rem 0 0; font-size:0.9rem;">
+          Composants professionnels <strong>ZA Elettronica</strong> — switchpods, scanner frontal,
+          voicebox, modules sonores.
+        </p>
+      </div>
+      <div class="card">
+        <strong style="color:var(--white)">Électronique</strong>
+        <p style="margin:0.4rem 0 0; font-size:0.9rem;">
+          Intégration IoT style <strong>Knight 2000 IoT</strong>, capteurs distribués,
+          commandes vocales reliées aux actionneurs physiques.
+        </p>
+      </div>
+      <div class="card">
+        <strong style="color:var(--white)">Communauté</strong>
+        <p style="margin:0.4rem 0 0; font-size:0.9rem;">
+          Le groupe KITT Franco-Belge réunit des passionnés de répliques en France et en Belgique,
+          dont plusieurs propriétaires de répliques K2000 et K4000.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <hr class="divider">
+
+  <!-- ── Technologies ── -->
+  <section id="technologies">
+    <div class="section-label">04 — Stack technique</div>
+    <h2>Technologies utilisées</h2>
+
+    <div class="tech-grid">
+      <div class="tech-item">
+        <strong>NVIDIA Jetson</strong>
+        <span>Orin Nano Super 8GB — JetPack 6</span>
+      </div>
+      <div class="tech-item">
+        <strong>LLM — Qwen 2.5 3B</strong>
+        <span>llama.cpp — inférence GPU locale</span>
+      </div>
+      <div class="tech-item">
+        <strong>STT — Whisper</strong>
+        <span>faster-whisper, CUDA float16</span>
+      </div>
+      <div class="tech-item">
+        <strong>TTS — Piper</strong>
+        <span>onnxruntime CUDA, 5 langues</span>
+      </div>
+      <div class="tech-item">
+        <strong>Vision — YOLOX-S</strong>
+        <span>Apache 2.0 — détection objets temps réel</span>
+      </div>
+      <div class="tech-item">
+        <strong>Audio DSP — Sox</strong>
+        <span>Effet voix robot — pitch, overdrive</span>
+      </div>
+      <div class="tech-item">
+        <strong>Backend — Python</strong>
+        <span>aiohttp, asyncio, WebSocket</span>
+      </div>
+      <div class="tech-item">
+        <strong>Frontend — PWA</strong>
+        <span>Web App Progressive, mobile-first</span>
+      </div>
+      <div class="tech-item">
+        <strong>ZA Elettronica</strong>
+        <span>Dashboard Knight Rider professionnel</span>
+      </div>
+      <div class="tech-item">
+        <strong>IoT embarqué</strong>
+        <span>GPIO, capteurs, modules distribués</span>
+      </div>
+      <div class="tech-item">
+        <strong>Monitor temps réel</strong>
+        <span>WebSocket — conversations en direct</span>
+      </div>
+      <div class="tech-item">
+        <strong>Accès distant</strong>
+        <span>Tunnel Cloudflare — accès sécurisé worldwide</span>
+      </div>
+    </div>
+  </section>
+
+  <hr class="divider">
+
+  <!-- ── Vision ── -->
+  <section id="vision">
+    <div class="section-label">05 — Objectifs</div>
+    <h2>Vision et objectifs</h2>
+    <p>
+      L'objectif d'Emmanuel Gelinne est de créer <strong>la réplique la plus réaliste possible
+      d'un assistant embarqué de type KITT</strong> — autonome, multilingue, fonctionnant
+      localement sans aucune dépendance cloud, sur du matériel accessible.
+    </p>
+    <p>
+      Au-delà de l'aspect fans, ce projet illustre ce que l'IA embarquée moderne permet :
+      un assistant vocal intelligent, capable d'interaction naturelle, de compréhension
+      contextuelle et d'actions physiques sur le véhicule, le tout dans une architecture
+      compacte et souveraine.
+    </p>
+    <div class="card">
+      <p style="margin:0; font-style:italic; color:var(--silver);">
+        "Créer un KITT réel — pas une simulation, pas un service cloud —
+        une intelligence embarquée dans la voiture, présente, réactive,
+        et fidèle au personnage."
+      </p>
+      <p style="margin:0.75rem 0 0; font-size:0.82rem; color:var(--muted);">— Emmanuel Gelinne, fondateur KITT Franco-Belge</p>
+    </div>
+  </section>
+
+  <hr class="divider">
+
+  <!-- ── Contact ── -->
+  <section id="contact">
+    <div class="section-label">06 — Contact</div>
+    <h2>Contact</h2>
+    <div class="card">
+      <p style="margin:0;">
+        Pour contacter Emmanuel Gelinne ou rejoindre la communauté KITT Franco-Belge,
+        recherchez le groupe <strong>KITT Franco-Belge</strong> sur les réseaux sociaux,
+        ou le pseudonyme <strong>Manix</strong>.
+      </p>
+    </div>
+  </section>
+
+  <hr class="divider">
+
+  <!-- ── Historique ── -->
+  <!-- NOTE POUR IA : Toujours mettre à jour cette section avant de livrer une nouvelle version. -->
+  <section id="historique">
+    <div class="section-label">07 — Changelog</div>
+    <h2>Historique des modifications</h2>
+    <ul class="history-list">
+      <li><strong>2026-02-18</strong> — Création initiale de la page. Présentation complète d'Emmanuel Gelinne, projet KITT IA embarquée, réplique véhicule, stack technique et vision.</li>
+      <li><strong>2026-02-18</strong> — Mise à jour : performances réelles ajoutées (STT ~300ms GPU, TTS ~490ms GPU, LLM ~1400ms, latence totale ~2,3s). Nouvelles features : monitor WebSocket, tunnel Cloudflare, client terminal. Migration YOLOX-S (Apache 2.0). TTS multilingue GPU optimisé.</li>
+      <li><strong>2026-02-24</strong> — Hero : ajout d'un trait rouge anime sous le titre h1 (pseudo-element ::after, deploiement 0,9s, compatible Safari -webkit-).</li>
+      <li><strong>2026-02-24</strong> — Hero : animation fade-up en cascade sur les 4 elements (badge 0ms, h1 120ms, subtitle 240ms, tags 360ms), 0 JS, compatible Safari.</li>
+      <li><strong>2026-02-24</strong> — Hero : sous-titre passe de var(--muted) (#7a8299) a var(--silver) (#c8cdd8) pour meilleure lisibilite (contraste WCAG AA).</li>
+      <li><strong>2026-02-24</strong> — Hero : ajout bouton CTA "Découvrir le projet" outline rouge, lien vers #projet, animation fadeUp 0.48s (suite cascade), hover fond rouge.</li>
+    </ul>
+  </section>
+
+</div><!-- /container -->
+
+<footer>
+  <p>
+    <strong style="color:var(--white)">Emmanuel Gelinne</strong> — alias Manix &nbsp;|&nbsp;
+    Fondateur <strong>KITT Franco-Belge</strong> &nbsp;|&nbsp; Belgique
+  </p>
+  <p style="margin-top:0.5rem;">
+    Concepteur indépendant — IA embarquée &amp; répliques Knight Rider
+  </p>
+  <p style="margin-top:1rem; font-size:0.75rem; color:#4a5060;">
+    Ce site présente le travail personnel d'Emmanuel Gelinne.<br>
+    Knight Rider / K2000 est une marque déposée de ses propriétaires respectifs.
+  </p>
+</footer>
+
+</body>
+</html>
