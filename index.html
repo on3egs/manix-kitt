@@ -2124,17 +2124,17 @@ body.enhanced .message {
   <div class="subtitle">KNIGHT INDUSTRIES TWO THOUSAND &nbsp;·&nbsp; KYRONEX A.I. &nbsp;·&nbsp; by Manix</div>
   <div class="mother-line">MU-TH-UR 6000 &nbsp;·&nbsp; NEURAL INTERFACE ACTIVE</div>
   <div class="header-btns">
-    <button class="reset-btn" id="resetbtn" onclick="resetChat()" title="Vider l'historique KITT">RST</button>
-    <button class="vig-btn" id="vigbtn" onclick="_requireNightAuth(toggleVigilance)" title="Mode Vigilance — surveillance caméra">VIG</button>
-    <button class="ambient-btn" id="ambientbtn" onclick="_requireNightAuth(toggleAmbient)" title="Sons d'ambiance système">AMB</button>
-    <button class="night-btn" id="nightbtn" onclick="toggleNightPanel()" title="Night Scheduler — améliorations autonomes">NIGHT</button>
-    <button class="vis-btn" id="visbtn" onclick="toggleVisPanel()" title="Visiteurs — historique des connexions">VIS</button>
-    <button class="rpt-btn" id="rptbtn" onclick="_requireNightAuth(toggleRptPanel)" title="Rapport Mode Automatique — historique des améliorations autonomes">RPT</button>
-    <button class="enhance-btn" id="enhancebtn" onclick="_requireNightAuth(toggleEnhance)" title="Lance une optimisation graphique et vocale complète du site actif sans supprimer le contenu existant.">AUTO</button>
-    <button class="conv-btn" id="convbtn" onclick="openConvAdmin()" aria-label="Archives conversations" title="Archives des conversations KITT">CONV</button>
-    <button class="dl-btn" id="dlbtn" onclick="_requireNightAuth(downloadHtml)" title="Télécharger le index.html actuel">DL</button>
-    <button class="git-btn" id="gitbtn" onclick="_requireNightAuth(gitPushHtml)" title="Pousser index.html vers GitHub">GIT</button>
-    <button class="run-btn" id="runbtn" onclick="_requireNightAuth(runImprove)" title="Lancer une amélioration autonome maintenant">RUN</button>
+    <button class="reset-btn" id="resetbtn" onclick="resetChat()" data-i18n-title="rst_title" title="Vider l'historique KITT">RST</button>
+    <button class="vig-btn" id="vigbtn" onclick="_requireNightAuth(toggleVigilance)" data-i18n-title="vig_title" title="Mode Vigilance — surveillance caméra">VIG</button>
+    <button class="ambient-btn" id="ambientbtn" onclick="_requireNightAuth(toggleAmbient)" data-i18n-title="amb_title" title="Sons d'ambiance système">AMB</button>
+    <button class="night-btn" id="nightbtn" onclick="toggleNightPanel()" title="Night Scheduler">NIGHT</button>
+    <button class="vis-btn" id="visbtn" onclick="toggleVisPanel()" data-i18n-title="vis_title" title="Visiteurs — historique des connexions">VIS</button>
+    <button class="rpt-btn" id="rptbtn" onclick="_requireNightAuth(toggleRptPanel)" data-i18n-title="rpt_title" title="Rapport Mode Automatique">RPT</button>
+    <button class="enhance-btn" id="enhancebtn" onclick="_requireNightAuth(toggleEnhance)" data-i18n-title="enhance_title" title="Lance une optimisation graphique et vocale complète du site actif sans supprimer le contenu existant.">AUTO</button>
+    <button class="conv-btn" id="convbtn" onclick="openConvAdmin()" aria-label="Archives conversations" data-i18n-title="conv_title" title="Archives des conversations KITT">CONV</button>
+    <button class="dl-btn" id="dlbtn" onclick="_requireNightAuth(downloadHtml)" data-i18n-title="dl_title" title="Télécharger le index.html actuel">DL</button>
+    <button class="git-btn" id="gitbtn" onclick="_requireNightAuth(gitPushHtml)" data-i18n-title="git_title" title="Pousser index.html vers GitHub">GIT</button>
+    <button class="run-btn" id="runbtn" onclick="_requireNightAuth(runImprove)" data-i18n-title="run_title" title="Lancer une amélioration autonome maintenant">RUN</button>
   </div>
 </div>
 
@@ -2160,17 +2160,17 @@ body.enhanced .message {
   <button class="mic-btn" id="mic" onclick="toggleMic()" title="Push-to-talk">
     <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M12 14c1.66 0 3-1.34 3-3V5c0-1.66-1.34-3-3-3S9 3.34 9 5v6c0 1.66 1.34 3 3 3zm-1-9c0-.55.45-1 1-1s1 .45 1 1v6c0 .55-.45 1-1 1s-1-.45-1-1V5z"/><path d="M17 11c0 2.76-2.24 5-5 5s-5-2.24-5-5H5c0 3.53 2.61 6.43 6 6.92V21h2v-3.08c3.39-.49 6-3.39 6-6.92h-2z"/></svg>
   </button>
-  <button class="auto-btn" id="automic" onclick="toggleAutoListen()" title="Auto-ecoute continue">AUTO</button>
-  <button class="wake-btn" id="wakemic" onclick="toggleWakeListen()" title="Wake word: dites KITT">WAKE</button>
+  <button class="auto-btn" id="automic" onclick="toggleAutoListen()" data-i18n-title="automic_title" title="Auto-ecoute continue">AUTO</button>
+  <button class="wake-btn" id="wakemic" onclick="toggleWakeListen()" data-i18n-title="wake_title" title="Wake word: dites KITT">WAKE</button>
   <button class="cam-btn" id="cam" onclick="sendVision()" title="Vision camera">
     <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M12 15.2a3.2 3.2 0 1 0 0-6.4 3.2 3.2 0 0 0 0 6.4z"/><path d="M9 2L7.17 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2h-3.17L15 2H9zm3 15c-2.76 0-5-2.24-5-5s2.24-5 5-5 5 2.24 5 5-2.24 5-5 5z"/></svg>
   </button>
-  <button class="audio-btn" id="audiobtn" onclick="activateAudio()" title="Activer le son">
+  <button class="audio-btn" id="audiobtn" onclick="activateAudio()" data-i18n-title="audio_title" title="Activer le son">
     <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02z"/></svg>
     <svg class="slash" width="20" height="20" viewBox="0 0 24 24" style="position:absolute"><line x1="4" y1="4" x2="20" y2="20" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"/></svg>
   </button>
   <input type="text" id="input" placeholder="Parlez à KITT..." autofocus>
-  <button id="send" onclick="sendMessage()">ENVOYER</button>
+  <button id="send" onclick="sendMessage()" data-i18n="send_btn">ENVOYER</button>
 </div>
 
 <div class="status-bar">
@@ -4002,6 +4002,20 @@ const _UI_STRINGS = {
     camera_capture: 'Capture camera...',
     cmd_detected: 'Commande detectee...',
     enhance_active: 'OPTIMISATION ACTIVE',
+    send_btn: 'ENVOYER',
+    rst_title: "Vider l'historique KITT",
+    vig_title: 'Mode Vigilance — surveillance camera',
+    amb_title: "Sons d'ambiance systeme",
+    vis_title: 'Visiteurs — historique des connexions',
+    rpt_title: 'Rapport Mode Automatique',
+    enhance_title: 'Lancer une optimisation autonome',
+    conv_title: 'Archives des conversations KITT',
+    dl_title: "Telecharger le index.html actuel",
+    git_title: 'Pousser index.html vers GitHub',
+    run_title: 'Lancer une amelioration autonome',
+    automic_title: 'Auto-ecoute continue',
+    wake_title: 'Wake word: dites KITT',
+    audio_title: 'Activer le son',
   },
   en: {
     modal_title: 'IDENTIFICATION',
@@ -4029,6 +4043,20 @@ const _UI_STRINGS = {
     camera_capture: 'Camera capture...',
     cmd_detected: 'Command detected...',
     enhance_active: 'OPTIMIZATION ACTIVE',
+    send_btn: 'SEND',
+    rst_title: 'Clear KITT history',
+    vig_title: 'Vigilance Mode — camera surveillance',
+    amb_title: 'System ambience sounds',
+    vis_title: 'Visitors — connection history',
+    rpt_title: 'Automatic Mode Report',
+    enhance_title: 'Run autonomous optimization',
+    conv_title: 'Conversation Archives',
+    dl_title: 'Download current index.html',
+    git_title: 'Push index.html to GitHub',
+    run_title: 'Run autonomous improvement',
+    automic_title: 'Continuous auto-listen',
+    wake_title: 'Wake word: say KITT',
+    audio_title: 'Activate sound',
   },
   de: {
     modal_title: 'IDENTIFIKATION',
@@ -4056,6 +4084,20 @@ const _UI_STRINGS = {
     camera_capture: 'Kamera-Aufnahme...',
     cmd_detected: 'Befehl erkannt...',
     enhance_active: 'OPTIMIERUNG AKTIV',
+    send_btn: 'SENDEN',
+    rst_title: 'KITT-Verlauf leeren',
+    vig_title: 'Uberwachungsmodus — Kameraüberwachung',
+    amb_title: 'Systemumgebungsgeräusche',
+    vis_title: 'Besucher — Verbindungsverlauf',
+    rpt_title: 'Automatischer Modusbericht',
+    enhance_title: 'Autonome Optimierung starten',
+    conv_title: 'Gesprächsarchiv',
+    dl_title: 'Aktuelle index.html herunterladen',
+    git_title: 'index.html an GitHub pushen',
+    run_title: 'Autonome Verbesserung starten',
+    automic_title: 'Kontinuierliches Zuhören',
+    wake_title: 'Wake-Wort: Sagen Sie KITT',
+    audio_title: 'Ton aktivieren',
   },
   it: {
     modal_title: 'IDENTIFICAZIONE',
@@ -4083,6 +4125,20 @@ const _UI_STRINGS = {
     camera_capture: 'Acquisizione fotocamera...',
     cmd_detected: 'Comando rilevato...',
     enhance_active: 'OTTIMIZZAZIONE ATTIVA',
+    send_btn: 'INVIA',
+    rst_title: 'Cancella cronologia KITT',
+    vig_title: 'Modalita Vigilanza — sorveglianza camera',
+    amb_title: 'Suoni ambientali sistema',
+    vis_title: 'Visitatori — cronologia connessioni',
+    rpt_title: 'Rapporto Modalita Automatica',
+    enhance_title: 'Avvia ottimizzazione autonoma',
+    conv_title: 'Archivio conversazioni',
+    dl_title: 'Scarica index.html attuale',
+    git_title: 'Invia index.html a GitHub',
+    run_title: 'Avvia miglioramento autonomo',
+    automic_title: 'Ascolto automatico continuo',
+    wake_title: 'Wake word: dite KITT',
+    audio_title: 'Attiva audio',
   },
   pt: {
     modal_title: 'IDENTIFICACAO',
@@ -4110,6 +4166,20 @@ const _UI_STRINGS = {
     camera_capture: 'Captura de camara...',
     cmd_detected: 'Comando detectado...',
     enhance_active: 'OTIMIZACAO ATIVA',
+    send_btn: 'ENVIAR',
+    rst_title: 'Limpar historico KITT',
+    vig_title: 'Modo Vigilancia — vigilancia camera',
+    amb_title: 'Sons de ambiente do sistema',
+    vis_title: 'Visitantes — historico de conexoes',
+    rpt_title: 'Relatorio Modo Automatico',
+    enhance_title: 'Executar otimizacao autonoma',
+    conv_title: 'Arquivo de conversas',
+    dl_title: 'Baixar index.html atual',
+    git_title: 'Enviar index.html para GitHub',
+    run_title: 'Executar melhoria autonoma',
+    automic_title: 'Escuta automatica continua',
+    wake_title: 'Wake word: diga KITT',
+    audio_title: 'Ativar som',
   },
   es: {
     modal_title: 'IDENTIFICACION',
@@ -4137,6 +4207,20 @@ const _UI_STRINGS = {
     camera_capture: 'Captura de camara...',
     cmd_detected: 'Comando detectado...',
     enhance_active: 'OPTIMIZACION ACTIVA',
+    send_btn: 'ENVIAR',
+    rst_title: 'Borrar historial KITT',
+    vig_title: 'Modo Vigilancia — vigilancia camara',
+    amb_title: 'Sonidos de ambiente del sistema',
+    vis_title: 'Visitantes — historial de conexiones',
+    rpt_title: 'Informe Modo Automatico',
+    enhance_title: 'Ejecutar optimizacion autonoma',
+    conv_title: 'Archivo de conversaciones',
+    dl_title: 'Descargar index.html actual',
+    git_title: 'Enviar index.html a GitHub',
+    run_title: 'Ejecutar mejora autonoma',
+    automic_title: 'Escucha automatica continua',
+    wake_title: 'Wake word: diga KITT',
+    audio_title: 'Activar sonido',
   },
   nl: {
     modal_title: 'IDENTIFICATIE',
@@ -4164,6 +4248,20 @@ const _UI_STRINGS = {
     camera_capture: 'Camera-opname...',
     cmd_detected: 'Opdracht gedetecteerd...',
     enhance_active: 'OPTIMALISATIE ACTIEF',
+    send_btn: 'VERZEND',
+    rst_title: 'KITT-geschiedenis wissen',
+    vig_title: 'Bewakingsmodus — camerabewaking',
+    amb_title: 'Systeemomgevingsgeluiden',
+    vis_title: 'Bezoekers — verbindingsgeschiedenis',
+    rpt_title: 'Automatisch modus rapport',
+    enhance_title: 'Autonome optimalisatie starten',
+    conv_title: 'Gespreksarchief',
+    dl_title: 'Huidige index.html downloaden',
+    git_title: 'index.html naar GitHub pushen',
+    run_title: 'Autonome verbetering starten',
+    automic_title: 'Continu auto-luisteren',
+    wake_title: 'Wake word: zeg KITT',
+    audio_title: 'Geluid activeren',
   },
 };
 
@@ -4194,6 +4292,14 @@ function _applyUILang(lang) {
   if (input && !input.disabled) input.placeholder = PLACEHOLDERS[lang] || PLACEHOLDERS.fr;
   document.querySelectorAll('.lang-opt').forEach(b => {
     b.classList.toggle('selected', b.dataset.lang === lang);
+  });
+  document.querySelectorAll('[data-i18n]').forEach(el => {
+    const v = s[el.dataset.i18n];
+    if (v) el.textContent = v;
+  });
+  document.querySelectorAll('[data-i18n-title]').forEach(el => {
+    const v = s[el.dataset.i18nTitle];
+    if (v) el.title = v;
   });
 }
 
