@@ -1157,6 +1157,16 @@ body.kb-open { padding-bottom: 222px; }
 }
 .reset-btn:hover { color: #ff3333; border-color: #ff3333; box-shadow: 0 0 8px #ff000033; }
 .reset-btn:active { transform: translateY(-50%) scale(0.95); }
+/* Bouton Manix */
+.mnx-btn {
+  position: relative; transform: none;
+  background: transparent; border: 1px solid #664422; color: #aa6633;
+  font-size: 0.48em; font-family: inherit; font-weight: bold;
+  letter-spacing: 1.5px; padding: 3px 7px; cursor: pointer; border-radius: 2px;
+  transition: all 0.3s; -webkit-tap-highlight-color: transparent;
+  text-decoration: none; display: inline-flex; align-items: center;
+}
+.mnx-btn:hover { color: #ff9955; border-color: #ff9955; box-shadow: 0 0 8px #ff440033; }
 
 /* ── Bouton sons d'ambiance (dans header) ── */
 .ambient-btn {
@@ -2124,6 +2134,7 @@ body.enhanced .message {
   <div class="subtitle">KNIGHT INDUSTRIES TWO THOUSAND &nbsp;·&nbsp; KYRONEX A.I. &nbsp;·&nbsp; by Manix</div>
   <div class="mother-line">MU-TH-UR 6000 &nbsp;·&nbsp; NEURAL INTERFACE ACTIVE</div>
   <div class="header-btns">
+    <a href="manix.html" class="mnx-btn" title="Dossier Manix">MNX</a>
     <button class="reset-btn" id="resetbtn" onclick="resetChat()" data-i18n-title="rst_title" title="Vider l'historique KITT">RST</button>
     <button class="vig-btn" id="vigbtn" onclick="_requireNightAuth(toggleVigilance)" data-i18n-title="vig_title" title="Mode Vigilance — surveillance caméra">VIG</button>
     <button class="ambient-btn" id="ambientbtn" onclick="_requireNightAuth(toggleAmbient)" data-i18n-title="amb_title" title="Sons d'ambiance système">AMB</button>

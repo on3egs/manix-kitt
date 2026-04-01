@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<meta name="theme-color" content="#0a0a0a">
+<title>MANIX — Dossier Confidentiel · KITT Franco-Belge</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html,body{min-height:100%;background:radial-gradient(ellipse at 50% 30%,#0f0000 0%,#050000 40%,#020000 100%);color:#e0e0e0;font-family:'Courier New',monospace}
+body::before{content:'';position:fixed;top:0;left:0;right:0;bottom:0;background-image:linear-gradient(rgba(0,180,60,0.012) 1px,transparent 1px),linear-gradient(90deg,rgba(255,0,0,0.012) 1px,transparent 1px);background-size:40px 40px;pointer-events:none;z-index:0}
+body::after{content:'';position:fixed;top:0;left:0;right:0;bottom:0;background:repeating-linear-gradient(0deg,transparent,transparent 2px,rgba(0,0,0,0.06) 2px,rgba(0,0,0,0.06) 4px);pointer-events:none;z-index:0}
+.wrap{position:relative;z-index:1;max-width:820px;margin:0 auto;padding:40px 20px 80px}
+/* Header */
+.site-header{text-align:center;padding:20px 15px 16px;border-bottom:1px solid #1e0000;margin-bottom:40px;position:relative}
+.site-header::after{content:'';position:absolute;bottom:0;left:10%;right:10%;height:1px;background:linear-gradient(90deg,transparent,#ff2200,#ff5500,#ff2200,transparent);box-shadow:0 0 8px #ff220066}
+.site-header h1{font-size:1.6em;color:#ff3333;text-shadow:0 0 25px #ff0000,0 0 50px #ff000044;letter-spacing:8px;font-weight:bold}
+.site-header .sub{font-size:0.55em;color:#cc4444;letter-spacing:4px;margin-top:4px}
+/* Nav */
+.nav-back{display:inline-flex;align-items:center;gap:8px;padding:8px 18px;border:1px solid rgba(255,34,34,0.3);color:rgba(192,192,192,0.7);font-family:'Courier New',monospace;font-size:0.65rem;letter-spacing:0.15em;text-decoration:none;cursor:pointer;background:transparent;transition:all 0.2s;margin-bottom:30px}
+.nav-back:hover{border-color:#ff3333;color:#ff3333;box-shadow:0 0 8px #ff000033}
+/* Dossier */
+.label{font-size:0.55rem;color:rgba(255,50,50,0.5);letter-spacing:0.35em;text-align:center;margin-bottom:1.5rem}
+.photo-wrap{display:flex;justify-content:center;margin-bottom:1.5rem}
+.photo-box{width:180px;height:180px;border:1px solid rgba(255,34,34,0.4);box-shadow:0 0 30px rgba(255,34,34,0.15);overflow:hidden;background:#0a0000}
+.photo-box img{width:100%;height:100%;object-fit:cover;filter:sepia(15%) contrast(1.1)}
+h2.name{font-size:3rem;font-weight:900;color:#fff;text-align:center;letter-spacing:0.1em;margin-bottom:0.3rem;text-shadow:0 0 20px rgba(255,0,0,0.3)}
+h3.role{font-size:0.7rem;color:#ff3333;text-align:center;letter-spacing:0.3em;margin-bottom:1.5rem;text-shadow:0 0 10px rgba(255,0,0,0.4)}
+.scanner-bar{height:3px;background:linear-gradient(90deg,transparent,#ff2200,transparent);background-size:200% 100%;animation:scan 2s linear infinite;margin:0 auto 1.5rem;max-width:300px}
+@keyframes scan{0%{background-position:200% 0}100%{background-position:-200% 0}}
+.intro{text-align:center;color:rgba(192,192,192,0.7);line-height:2;max-width:600px;margin:0 auto 2rem;font-family:Arial,sans-serif;font-size:0.9rem}
+/* Bouton audio */
+.btns{display:flex;flex-wrap:wrap;gap:12px;justify-content:center;margin-bottom:2.5rem}
+.btn{padding:12px 24px;font-family:'Courier New',monospace;font-size:0.65rem;letter-spacing:0.15em;cursor:pointer;transition:all 0.2s;text-decoration:none;display:inline-flex;align-items:center;gap:8px;border:1px solid rgba(255,34,34,0.3);color:rgba(192,192,192,0.7);background:transparent}
+.btn:hover{border-color:#ff3333;color:#ff3333;box-shadow:0 0 8px #ff000033}
+.btn-play{border-color:rgba(255,34,34,0.5)!important;color:#ff3333!important;background:rgba(255,34,34,0.05)!important}
+.btn-play:hover,.btn-play.playing{background:rgba(255,34,34,0.15)!important;box-shadow:0 0 20px rgba(255,34,34,0.25)!important}
+.progress-bar{width:100%;max-width:400px;margin:0 auto 2rem;height:3px;background:rgba(255,34,34,0.1);border:1px solid rgba(255,34,34,0.2);display:none}
+.progress-fill{height:100%;background:#ff2200;width:0%;transition:width 0.5s linear;box-shadow:0 0 6px #ff220099}
+.progress-bar.visible{display:block}
+/* Divider */
+.divider{height:1px;background:rgba(255,34,34,0.15);margin:0 auto 2.5rem;max-width:400px}
+/* Timeline */
+.tl-title{text-align:center;margin-bottom:2rem}
+.tl-label{font-size:0.55rem;color:rgba(255,50,50,0.5);letter-spacing:0.3em;margin-bottom:0.5rem}
+.tl-title h4{font-size:1.4rem;color:#fff;letter-spacing:0.1em}
+.tl-title h4 span{color:#ff3333;text-shadow:0 0 10px rgba(255,0,0,0.4)}
+.item{border:1px solid rgba(255,34,34,0.2);background:rgba(255,34,34,0.02);padding:22px 24px;margin-bottom:1.2rem;transition:border-color 0.2s}
+.item:hover{border-color:rgba(255,34,34,0.4)}
+.item-year{font-size:0.55rem;color:rgba(255,50,50,0.5);letter-spacing:0.2em;margin-bottom:4px}
+.item-title{font-size:0.88rem;color:#fff;letter-spacing:0.08em;margin-bottom:10px;font-weight:bold}
+.item-text{color:rgba(192,192,192,0.7);line-height:1.9;font-size:0.88rem;font-family:Arial,sans-serif}
+.footer{text-align:center;padding:50px 0 20px;font-size:0.55rem;color:rgba(255,34,34,0.3);letter-spacing:0.3em}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="site-header">
+    <h1>KITT</h1>
+    <div class="sub">KNIGHT INDUSTRIES TWO THOUSAND &nbsp;&middot;&nbsp; FRANCO-BELGE</div>
+  </div>
+
+  <a href="/" class="nav-back">&#8592; RETOUR KITT</a>
+
+  <div class="label">DOSSIER CONFIDENTIEL &mdash; KNIGHT INDUSTRIES</div>
+  <div class="photo-wrap">
+    <div class="photo-box">
+      <img src="https://on3egs.github.io/Kitt-franco-belge/manix.png" alt="Manix — Le Maitre">
+    </div>
+  </div>
+  <div class="label">IDENTITE</div>
+  <h2 class="name">MANIX</h2>
+  <h3 class="role">LE MAITRE &mdash; ARCHITECTE DE KITT</h3>
+  <div class="scanner-bar"></div>
+  <p class="intro">Autodidacte. Passionn&eacute;. Pionnier discret. Depuis un CPC 464 et une page de code dans un magazine belge jusqu&apos;&agrave; une intelligence artificielle qui parle et &eacute;coute &mdash; l&apos;histoire d&apos;une vie guid&eacute;e par la curiosit&eacute;.</p>
+
+  <div class="btns">
+    <button class="btn btn-play" id="playbtn" onclick="toggleAudio()">&#9654; &Eacute;COUTER MON HISTOIRE</button>
+    <a href="#histoire" class="btn">LIRE L&apos;HISTOIRE &rarr;</a>
+  </div>
+  <div class="progress-bar" id="progressBar"><div class="progress-fill" id="progressFill"></div></div>
+
+  <div class="divider"></div>
+
+  <div class="tl-title" id="histoire">
+    <div class="tl-label">CHRONOLOGIE &mdash; DOSSIER 001</div>
+    <h4>DE 8 ANS AU CPC 464<br><span>&Agrave; L&apos;IA KITT</span></h4>
+  </div>
+
+  <div class="item">
+    <div class="item-year">~1985</div>
+    <div class="item-title">Le CPC 464 de Grand-M&egrave;re</div>
+    <div class="item-text">Tout commence avec un cadeau extraordinaire&nbsp;: un Schneider CPC 464 avec lecteur K7, offert par sa grand-m&egrave;re. Dans les librairies de Belgique, un magazine vendu en 7 extraits proposait &agrave; chaque num&eacute;ro une page de code &agrave; taper soi-m&ecirc;me. Sans internet, sans professeur, sans aide &mdash; juste un enfant de 8 ans face &agrave; un &eacute;cran vert, et des lignes de BASIC &agrave; reproduire lettre par lettre.</div>
+  </div>
+  <div class="item">
+    <div class="item-year">Quelques ann&eacute;es plus tard</div>
+    <div class="item-title">Le Pirate Blanc</div>
+    <div class="item-text">Dans un petit village de Belgique, le destin frappe &agrave; une porte inattendue. Le p&egrave;re d&apos;un ami &mdash; un homme discret qui travaille pour la police Belgo-Luxembourgeoise comme pirate blanc &mdash; devient une figure de mentor. Chaque visite se transforme en s&eacute;ance d&apos;observation fascin&eacute;e&nbsp;: des lignes de code d&eacute;filent sur l&apos;&eacute;cran, et Manix est comme hypnotis&eacute;. Le pirate blanc remarque cette fixation, propose une chaise &agrave; c&ocirc;t&eacute; de lui.</div>
+  </div>
+  <div class="item">
+    <div class="item-year">Deux ans d&apos;apprentissage</div>
+    <div class="item-title">L&apos;IBM 80-86</div>
+    <div class="item-text">Deux ans de visites r&eacute;guli&egrave;res, deux ans d&apos;apprentissage silencieux aupr&egrave;s d&apos;un vrai professionnel. Et un jour, le mentor fait un geste rare&nbsp;: il offre son PC IBM 80-86. Du CPC 464 et ses K7 au vrai PC sous MS-DOS &mdash; un saut technologique vertigineux pour un adolescent qui n&apos;avait eu pour seul guide que sa curiosit&eacute;.</div>
+  </div>
+  <div class="item">
+    <div class="item-year">L&apos;&egrave;re des machines</div>
+    <div class="item-title">Atari, Commodore &amp; Co.</div>
+    <div class="item-text">De machine en machine, la passion ne faiblit pas. Atari, Commodore, les grandes heures de la micro-informatique personnelle &mdash; Manix les a v&eacute;cues de l&apos;int&eacute;rieur, les mains dans le code, &agrave; une &eacute;poque o&ugrave; chaque ligne &eacute;crite &eacute;tait une conqu&ecirc;te.</div>
+  </div>
+  <div class="item">
+    <div class="item-year">La formation</div>
+    <div class="item-title">Cours d&apos;Infographie</div>
+    <div class="item-text">Des cours d&apos;infographie viendront compl&eacute;ter le parcours autodidacte&nbsp;: HTML, CSS, Flash MX&hellip; les outils du web naissant. Manix apprend &agrave; marier l&apos;art et le code, l&apos;esth&eacute;tique et la logique.</div>
+  </div>
+  <div class="item">
+    <div class="item-year">Aujourd&apos;hui</div>
+    <div class="item-title">KITT Franco-Belge</div>
+    <div class="item-text">Des d&eacute;cennies apr&egrave;s le premier &laquo;&nbsp;10 PRINT&nbsp;&raquo; tap&eacute; sur un CPC 464, Manix donne vie &agrave; KITT sur Jetson Nano, avec llama.cpp, Piper TTS et Whisper STT. L&apos;enfant qui tapait du code de magazine est devenu l&apos;architecte d&apos;une IA qui parle, &eacute;coute et r&eacute;pond. La technologie a chang&eacute;. La passion, jamais.</div>
+  </div>
+
+  <div class="footer">FIN DU DOSSIER &mdash; KNIGHT INDUSTRIES TWO THOUSAND</div>
+</div>
+<script>
+var _audio = null, _playing = false, _progTimer = null;
+function toggleAudio() {
+  var btn = document.getElementById('playbtn');
+  var bar = document.getElementById('progressBar');
+  var fill = document.getElementById('progressFill');
+  if (!_audio) {
+    _audio = new Audio('manix_story.mp3');
+    _audio.onended = function() {
+      _playing = false;
+      btn.innerHTML = '&#8635; R&Eacute;&Eacute;COUTER';
+      btn.classList.remove('playing');
+      clearInterval(_progTimer);
+      fill.style.width = '100%';
+    };
+    _audio.onerror = function() {
+      btn.innerHTML = '&#9654; &Eacute;COUTER MON HISTOIRE';
+      btn.classList.remove('playing');
+      _playing = false;
+      bar.classList.remove('visible');
+    };
+  }
+  if (_playing) {
+    _audio.pause();
+    _playing = false;
+    btn.innerHTML = '&#9654; REPRENDRE';
+    btn.classList.remove('playing');
+    clearInterval(_progTimer);
+  } else {
+    _audio.play().catch(function(e){ console.warn(e); });
+    _playing = true;
+    btn.innerHTML = '&#9646;&#9646; EN COURS...';
+    btn.classList.add('playing');
+    bar.classList.add('visible');
+    clearInterval(_progTimer);
+    _progTimer = setInterval(function() {
+      if (_audio.duration) fill.style.width = (_audio.currentTime / _audio.duration * 100) + '%';
+    }, 500);
+  }
+}
+</script>
+</body>
+</html>
