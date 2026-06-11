@@ -6,399 +6,257 @@
 <meta name="theme-color" content="#0a0a0a">
 <title>KYRONEXT STUDIO — Telechargeur audio &middot; KITT Franco-Belge</title>
 <style>
-/* ── Reset ── */
 *{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent}
 html{scroll-behavior:smooth}
 
-/* ══ FOND D'ECRAN — NE PAS MODIFIER ══ */
+/* ══ FOND D'ECRAN — INTACT ══ */
 html,body{min-height:100%;background:radial-gradient(ellipse at 50% 30%,#000a0f 0%,#000507 40%,#000204 100%);color:#e0e0e0;font-family:'Courier New',monospace}
 body::before{content:'';position:fixed;top:0;left:0;right:0;bottom:0;background-image:linear-gradient(rgba(60,180,255,0.012) 1px,transparent 1px),linear-gradient(90deg,rgba(60,180,255,0.012) 1px,transparent 1px);background-size:40px 40px;pointer-events:none;z-index:0}
 body::after{content:'';position:fixed;top:0;left:0;right:0;bottom:0;background:repeating-linear-gradient(0deg,transparent,transparent 2px,rgba(0,0,0,0.06) 2px,rgba(0,0,0,0.06) 4px);pointer-events:none;z-index:0}
 
-/* ── Scan beam bleu descendant (Knight Industries style) ── */
-.scan-beam{
-  position:fixed;top:-3px;left:0;right:0;height:2px;
-  background:linear-gradient(90deg,transparent 0%,rgba(0,160,255,0) 10%,rgba(0,200,255,0.55) 40%,rgba(85,204,255,0.75) 50%,rgba(0,200,255,0.55) 60%,rgba(0,160,255,0) 90%,transparent 100%);
-  box-shadow:0 0 10px rgba(0,180,255,0.45),0 0 24px rgba(0,160,255,0.18);
-  pointer-events:none;z-index:50;
-  animation:scan-beam-fall 18s linear infinite
-}
-@keyframes scan-beam-fall{0%{top:-3px;opacity:0}3%{opacity:1}97%{opacity:.85}100%{top:100vh;opacity:0}}
-
 /* ── Layout ── */
-.wrap{position:relative;z-index:1;max-width:860px;margin:0 auto;padding:40px 20px 100px}
+.wrap{position:relative;z-index:1;max-width:780px;margin:0 auto;padding:60px 24px 100px}
 
-/* ── Header KITT ── */
-.site-header{
-  text-align:center;padding:20px 15px 16px;
-  border-bottom:1px solid #001e2e;
-  margin-bottom:50px;position:relative
+/* ── En-tete minimal ── */
+.top-bar{
+  display:flex;align-items:center;justify-content:space-between;
+  margin-bottom:64px;
+  padding-bottom:16px;
+  border-bottom:1px solid rgba(85,204,255,.08)
 }
-.site-header::after{
-  content:'';position:absolute;bottom:0;left:10%;right:10%;height:1px;
-  background:linear-gradient(90deg,transparent,#3388aa,#55ccff,#3388aa,transparent);
-  box-shadow:0 0 8px #55ccff66
+.top-brand{
+  font-size:.52rem;letter-spacing:.4em;color:rgba(85,204,255,.35)
 }
-.site-header h1{
-  font-size:1.6em;color:#55ccff;
-  text-shadow:0 0 25px #3388aa,0 0 50px #3388aa44;
-  letter-spacing:8px;font-weight:bold;
-  animation:header-glow 5s ease-in-out infinite
-}
-@keyframes header-glow{
-  0%,100%{text-shadow:0 0 25px #3388aa,0 0 50px #3388aa44;opacity:1}
-  46%{text-shadow:0 0 45px #55ccff,0 0 90px #55ccff55;opacity:1}
-  49%{text-shadow:0 0 18px #1f6688,0 0 30px #3388aa33;opacity:.85}
-  51%{text-shadow:0 0 42px #55ccff,0 0 85px #55ccff66;opacity:1}
-}
-.site-header .sub{font-size:.55em;color:#446677;letter-spacing:4px;margin-top:4px}
-
-/* ── Bouton retour ── */
 .nav-back{
-  display:inline-flex;align-items:center;gap:8px;
-  padding:7px 16px;
-  border:1px solid rgba(85,204,255,.2);color:rgba(192,192,192,.55);
-  font-family:'Courier New',monospace;font-size:.6rem;letter-spacing:.18em;
+  display:inline-flex;align-items:center;gap:7px;
+  padding:6px 14px;
+  border:1px solid rgba(85,204,255,.18);color:rgba(192,192,192,.45);
+  font-family:'Courier New',monospace;font-size:.58rem;letter-spacing:.16em;
   text-decoration:none;background:transparent;
-  transition:all .2s;margin-bottom:44px;border-radius:2px
+  transition:border-color .2s,color .2s
 }
-.nav-back:hover{border-color:#55ccff;color:#55ccff;box-shadow:0 0 8px #00aaff33}
+.nav-back:hover{border-color:rgba(85,204,255,.5);color:rgba(85,204,255,.8)}
 
-/* ── Zone identité principale ── */
-.identity{text-align:center;margin-bottom:44px;position:relative}
-.id-label{font-size:.5rem;color:rgba(85,204,255,.35);letter-spacing:.42em;margin-bottom:1.2rem}
-.id-name{
-  font-size:3.4rem;font-weight:900;color:#fff;
-  letter-spacing:.12em;line-height:1;
-  text-shadow:0 0 35px rgba(85,204,255,.25),0 0 70px rgba(0,170,255,.1)
+/* ── Hero — typographie statique, pas d'animation ── */
+.hero{margin-bottom:56px}
+.hero-eyebrow{
+  font-size:.5rem;letter-spacing:.5em;
+  color:rgba(85,204,255,.3);
+  margin-bottom:20px
 }
-.id-role{
-  font-size:.66rem;color:#55ccff;
-  letter-spacing:.32em;margin-top:.6rem;
-  text-shadow:0 0 10px rgba(0,170,255,.4)
+.hero-title{
+  font-size:clamp(2.4rem,7vw,4.8rem);
+  font-weight:900;color:#fff;
+  letter-spacing:.08em;line-height:.95;
+  margin-bottom:18px
 }
-/* Ligne scintillante sous le titre */
-.id-line{
-  width:min(260px,60vw);height:1px;
-  background:linear-gradient(90deg,transparent,#3388aa,#55ccff,#3388aa,transparent);
-  margin:.8rem auto 0;
-  box-shadow:0 0 8px #55ccff44;
-  animation:id-line-pulse 3.5s ease-in-out infinite
+.hero-title .dim{color:rgba(255,255,255,.18)}
+.hero-sub{
+  font-size:.72rem;letter-spacing:.28em;
+  color:rgba(85,204,255,.55);
+  margin-bottom:28px
 }
-@keyframes id-line-pulse{0%,100%{opacity:.6}50%{opacity:1;box-shadow:0 0 14px #55ccff66}}
-
-/* ── Scanner bar KITT ── */
-.scanner-bar{
-  height:6px;background:#000f1a;border-radius:3px;position:relative;
-  overflow:hidden;border:1px solid #001a2e;
-  width:min(300px,68vw);margin:1.8rem auto
-}
-.scanner-bar-head{
-  position:absolute;top:0;height:100%;width:70px;border-radius:3px;
-  background:linear-gradient(90deg,transparent,#3388aa,#55ccff,#3388aa,transparent);
-  box-shadow:0 0 14px #55ccff,0 0 28px #3388aa;
-  animation:kitt-scan 2.4s ease-in-out infinite
-}
-@keyframes kitt-scan{0%{left:-70px;opacity:0}8%{opacity:1}92%{opacity:1}100%{left:calc(100% + 70px);opacity:0}}
-
-/* ── Intro ── */
-.intro{
-  text-align:center;color:rgba(192,192,192,.7);
-  line-height:2;max-width:620px;
-  margin:0 auto 2.5rem;
-  font-family:Arial,sans-serif;font-size:.92rem
-}
-.intro-prefix{
-  display:block;margin-bottom:.6rem;
-  font-family:'Courier New',monospace;
-  font-size:.52rem;color:#3388aa;letter-spacing:.22em
+.hero-desc{
+  max-width:520px;
+  color:rgba(192,192,192,.6);
+  line-height:1.85;
+  font-family:Arial,sans-serif;
+  font-size:.9rem
 }
 
-/* ══ BOUTONS — CONSERVES EXACTEMENT ══ */
-.btns{display:flex;flex-wrap:wrap;gap:12px;justify-content:center;margin-bottom:2rem}
+/* ── Separateur ── */
+.rule{height:1px;background:rgba(85,204,255,.07);margin:48px 0}
+
+/* ══ BOUTONS — INTACTS ══ */
+.btns{display:flex;flex-wrap:wrap;gap:12px;margin-bottom:20px}
 .btn{padding:12px 24px;font-family:'Courier New',monospace;font-size:.65rem;letter-spacing:.15em;cursor:pointer;transition:all .2s;text-decoration:none;display:inline-flex;align-items:center;gap:8px;border:1px solid rgba(85,204,255,.3);color:rgba(192,192,192,.7);background:transparent}
 .btn:hover{border-color:#55ccff;color:#55ccff;box-shadow:0 0 8px #00aaff33}
 .btn-primary{border-color:rgba(85,204,255,.6)!important;color:#55ccff!important;background:rgba(85,204,255,.05)!important}
 .btn-primary:hover{background:rgba(85,204,255,.15)!important;box-shadow:0 0 20px rgba(85,204,255,.25)!important}
 
-/* ── Terminal install ── */
-.dl-terminal{
-  max-width:640px;margin:0 auto 3rem;
-  border:1px solid rgba(85,204,255,.12);
-  border-left:3px solid rgba(85,204,255,.35);
-  background:rgba(0,18,30,.45);
-  padding:12px 16px;border-radius:0 3px 3px 0
+/* ── Note install ── */
+.install-note{
+  color:rgba(192,192,192,.45);
+  font-size:.72rem;line-height:1.7;
+  margin-bottom:0
 }
-.dl-terminal .dlt-tag{font-size:.5rem;color:#3388aa;letter-spacing:.3em;margin-bottom:6px}
-.dl-terminal p{color:rgba(192,192,192,.6);font:.78rem/1.75 'Courier New',monospace}
-.dl-terminal code{color:#55ccff}
+.install-note code{color:rgba(85,204,255,.6);font-family:inherit}
 
-/* ── Separateur ── */
-.sep{display:flex;align-items:center;gap:14px;margin:0 auto 2.8rem;max-width:500px}
-.sep-line{flex:1;height:1px;background:rgba(85,204,255,.1)}
-.sep-label{font-size:.48rem;color:rgba(85,204,255,.3);letter-spacing:.4em;white-space:nowrap}
-
-/* ── Titre section ── */
-.sect{text-align:center;margin-bottom:1.8rem}
-.sect-tag{font-size:.48rem;color:rgba(85,204,255,.35);letter-spacing:.42em;margin-bottom:.5rem}
-.sect-title{font-size:1.3rem;color:#fff;letter-spacing:.14em}
-.sect-title span{color:#55ccff;text-shadow:0 0 10px rgba(0,170,255,.4)}
-
-/* ── Grille features — style terminal KITT ── */
-.feat-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(255px,1fr));gap:1rem;margin-bottom:2.8rem}
-.feat{
-  border:1px solid rgba(85,204,255,.15);
-  background:linear-gradient(135deg,rgba(0,18,32,.65) 0%,rgba(0,8,18,.45) 100%);
-  padding:20px 22px;position:relative;overflow:hidden;
-  transition:border-color .25s,box-shadow .25s
+/* ── Features — liste horizontale ── */
+.feat-list{display:flex;flex-direction:column;gap:0;margin-bottom:0}
+.feat-row{
+  display:grid;
+  grid-template-columns:200px 1fr;
+  gap:32px;align-items:start;
+  padding:24px 0;
+  border-bottom:1px solid rgba(85,204,255,.06)
 }
-/* Coins KITT */
-.feat::before{content:'';position:absolute;top:0;left:0;width:22px;height:2px;background:#55ccff;box-shadow:0 0 7px #55ccff88}
-.feat::after{content:'';position:absolute;top:0;left:0;width:2px;height:22px;background:#55ccff;box-shadow:0 0 7px #55ccff88}
-.feat:hover{border-color:rgba(85,204,255,.35);box-shadow:0 0 22px rgba(0,170,255,.07),inset 0 0 30px rgba(0,100,180,.04)}
-/* Coin bas droit */
-.feat-inner{position:relative}
-.feat-inner::before{content:'';position:absolute;bottom:-20px;right:-22px;width:22px;height:2px;background:rgba(85,204,255,.35);box-shadow:0 0 5px rgba(85,204,255,.3)}
-.feat-inner::after{content:'';position:absolute;bottom:-20px;right:-22px;width:2px;height:22px;background:rgba(85,204,255,.35);box-shadow:0 0 5px rgba(85,204,255,.3)}
-.feat-tag{font-size:.46rem;color:#2a6688;letter-spacing:.3em;margin-bottom:8px}
-.feat-title{font-size:.77rem;color:#fff;letter-spacing:.1em;margin-bottom:10px;font-weight:bold;text-shadow:0 0 6px rgba(85,204,255,.18)}
-.feat-text{color:rgba(192,192,192,.68);line-height:1.82;font-size:.84rem;font-family:Arial,sans-serif}
-/* Barre status animee */
-.feat-bar{margin-top:14px;height:2px;background:rgba(0,160,255,.07);border-radius:1px;overflow:hidden}
-.feat-bar-fill{height:100%;border-radius:1px;background:linear-gradient(90deg,#2277aa,#55ccff);box-shadow:0 0 6px #55ccff55;width:0}
-.feat:nth-child(1) .feat-bar-fill{animation:fbar-92 2.8s .3s ease-out forwards}
-.feat:nth-child(2) .feat-bar-fill{animation:fbar-85 2.8s .6s ease-out forwards}
-.feat:nth-child(3) .feat-bar-fill{animation:fbar-100 2.8s .9s ease-out forwards}
-.feat:nth-child(4) .feat-bar-fill{animation:fbar-100 2.8s 1.2s ease-out forwards}
-@keyframes fbar-92{to{width:92%}}
-@keyframes fbar-85{to{width:85%}}
-@keyframes fbar-100{to{width:100%}}
-
-/* ── Panels legaux — alertes KITT ── */
-.legal-grid{display:flex;flex-direction:column;gap:.9rem;margin-bottom:2.8rem}
-.legal-panel{
-  border:1px solid rgba(85,204,255,.13);
-  border-left:3px solid rgba(85,204,255,.38);
-  background:rgba(0,12,22,.5);
-  padding:17px 20px;position:relative;
-  transition:border-color .2s,border-left-color .2s
+.feat-row:first-child{border-top:1px solid rgba(85,204,255,.06)}
+.feat-num{
+  font-size:.48rem;color:rgba(85,204,255,.25);
+  letter-spacing:.35em;margin-bottom:6px
 }
-.legal-panel:hover{border-color:rgba(85,204,255,.28);border-left-color:rgba(85,204,255,.7)}
-.legal-tag{font-size:.46rem;color:#2a6688;letter-spacing:.32em;margin-bottom:6px}
-.legal-title{font-size:.68rem;color:#55ccff;letter-spacing:.22em;margin-bottom:10px;font-weight:bold}
-.legal-text{color:rgba(192,192,192,.62);font-size:.84rem;line-height:1.78;font-family:Arial,sans-serif}
-
-/* ── Panel ecosysteme ── */
-.eco-panel{
-  border:1px solid rgba(85,204,255,.18);
-  background:linear-gradient(135deg,rgba(0,18,32,.7) 0%,rgba(0,8,18,.8) 100%);
-  padding:26px 28px;margin-bottom:2.8rem;
-  position:relative;text-align:center
+.feat-name{
+  font-size:.72rem;color:#fff;
+  letter-spacing:.12em;font-weight:bold
 }
-/* Coins eco-panel */
-.eco-panel::before{content:'';position:absolute;top:0;right:0;width:40px;height:2px;background:#55ccff;box-shadow:0 0 8px #55ccff88}
-.eco-panel::after{content:'';position:absolute;top:0;right:0;width:2px;height:40px;background:#55ccff;box-shadow:0 0 8px #55ccff88}
+.feat-body{color:rgba(192,192,192,.58);line-height:1.82;font-size:.87rem;font-family:Arial,sans-serif;padding-top:3px}
+
+/* ── Section titre ── */
+.section-head{margin-bottom:32px}
+.section-label{font-size:.46rem;color:rgba(85,204,255,.28);letter-spacing:.45em;margin-bottom:10px}
+.section-title{font-size:1.1rem;color:rgba(255,255,255,.75);letter-spacing:.18em}
+.section-title b{color:#fff}
+
+/* ── Legal — blocs compacts ── */
+.legal-list{display:flex;flex-direction:column;gap:1px;margin-bottom:0}
+.legal-item{
+  padding:20px 22px;
+  background:rgba(0,14,24,.3);
+  border-left:2px solid rgba(85,204,255,.2);
+  transition:border-left-color .2s,background .2s
+}
+.legal-item:hover{
+  background:rgba(0,20,34,.45);
+  border-left-color:rgba(85,204,255,.5)
+}
+.legal-num{font-size:.44rem;color:rgba(85,204,255,.22);letter-spacing:.38em;margin-bottom:5px}
+.legal-name{font-size:.65rem;color:rgba(255,255,255,.7);letter-spacing:.18em;font-weight:bold;margin-bottom:10px}
+.legal-body{color:rgba(192,192,192,.55);font-size:.85rem;line-height:1.78;font-family:Arial,sans-serif}
+
+/* ── Bloc ecosysteme ── */
+.eco-block{
+  padding:28px 0;
+  border-top:1px solid rgba(85,204,255,.06);
+  border-bottom:1px solid rgba(85,204,255,.06)
+}
+.eco-body{color:rgba(192,192,192,.55);line-height:1.88;font-size:.88rem;font-family:Arial,sans-serif;max-width:580px}
 
 /* ── Navigation bas ── */
-.bottom-nav{display:flex;flex-wrap:wrap;gap:12px;justify-content:center;margin-bottom:2.5rem}
+.bottom-nav{display:flex;flex-wrap:wrap;gap:12px;padding-top:40px}
 
 /* ── Footer ── */
-.footer{text-align:center;padding:40px 0 20px;font-size:.5rem;color:rgba(85,204,255,.22);letter-spacing:.36em}
-.footer-sep{width:200px;margin:0 auto 16px;height:1px;background:linear-gradient(90deg,transparent,rgba(85,204,255,.18),transparent)}
-
-/* ── Panneau lateral SPEC — style MU-TH-UR ── */
-.spec-panel{
-  position:fixed;top:50%;right:0;transform:translateY(-50%);
-  width:176px;
-  background:linear-gradient(160deg,rgba(0,14,24,.97) 0%,rgba(0,7,15,.99) 100%);
-  backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);
-  border-left:1px solid rgba(85,204,255,.16);
-  border-top:1px solid rgba(85,204,255,.08);
-  border-bottom:1px solid rgba(85,204,255,.08);
-  border-radius:8px 0 0 8px;
-  font-family:'Courier New',monospace;font-size:.48em;
-  color:#2a6688;letter-spacing:1px;line-height:1.95;
-  pointer-events:none;z-index:3;overflow:hidden;max-height:72vh;
-  box-shadow:-4px 0 24px rgba(0,170,255,.05),inset 0 0 30px rgba(0,12,25,.5)
+.footer{
+  margin-top:60px;
+  padding-top:20px;
+  border-top:1px solid rgba(85,204,255,.06);
+  font-size:.46rem;color:rgba(85,204,255,.18);
+  letter-spacing:.38em
 }
-/* Scan animé dans le panel */
-.spec-panel::before{
-  content:'';position:absolute;left:0;right:0;height:1px;
-  background:linear-gradient(90deg,transparent,rgba(85,204,255,.18),transparent);
-  animation:sp-scan 7s linear infinite;pointer-events:none;z-index:1
-}
-@keyframes sp-scan{0%{top:-2px}100%{top:101%}}
-/* CRT lignes */
-.spec-panel::after{
-  content:'';position:absolute;top:0;left:0;right:0;bottom:0;
-  background:repeating-linear-gradient(0deg,transparent,transparent 2px,rgba(0,0,0,.07) 3px);
-  pointer-events:none;z-index:0
-}
-.sp-header{
-  background:linear-gradient(90deg,rgba(0,25,45,.9),rgba(0,12,22,.6));
-  border-bottom:1px solid rgba(85,204,255,.12);
-  padding:8px 11px 6px;position:relative;z-index:2
-}
-.sp-corp{font-size:.68em;letter-spacing:3px;color:rgba(0,130,190,.4);margin-bottom:1px}
-.sp-title{color:#55ccff;letter-spacing:4px;font-size:1.1em;font-weight:bold;text-shadow:0 0 10px rgba(85,204,255,.38)}
-.sp-body{padding:8px 11px 10px;position:relative;z-index:2}
-.sp-row{display:flex;justify-content:space-between;gap:4px;margin-bottom:3px;align-items:baseline}
-.sp-key{color:#1e5066;flex-shrink:0;letter-spacing:1px;font-size:.9em}
-.sp-val{color:#55ccff;text-align:right;word-break:break-all;font-size:.9em;text-shadow:0 0 4px rgba(85,204,255,.22)}
-.sp-val.ok{color:#44ffaa;text-shadow:0 0 4px rgba(0,255,150,.2)}
-.sp-sep{border:none;border-top:1px solid rgba(85,204,255,.07);margin:5px 0}
-@media(max-width:700px){.spec-panel{display:none}}
 
 /* ── Responsive ── */
 @media(max-width:600px){
-  .id-name{font-size:2.4rem}
-  .wrap{padding:22px 14px 60px}
-  .eco-panel{padding:18px 16px}
-  .feat-grid{gap:.8rem}
+  .wrap{padding:32px 18px 60px}
+  .hero-title{font-size:2.4rem}
+  .feat-row{grid-template-columns:1fr;gap:6px}
+  .feat-num,.feat-name{display:inline;margin-right:8px}
+  .top-bar{flex-direction:column;align-items:flex-start;gap:14px;margin-bottom:40px}
 }
 </style>
 </head>
 <body>
-
-<!-- Scan beam Knight Industries -->
-<div class="scan-beam"></div>
-
-<!-- Panneau specifications lateral -->
-<div class="spec-panel">
-  <div class="sp-header">
-    <div class="sp-corp">K.I.T.T. SYSTEM</div>
-    <div class="sp-title">KYRONEXT</div>
-  </div>
-  <div class="sp-body">
-    <div class="sp-row"><span class="sp-key">BUILD</span><span class="sp-val">4.0.0</span></div>
-    <div class="sp-row"><span class="sp-key">ARCH</span><span class="sp-val">x64 / ARM</span></div>
-    <hr class="sp-sep">
-    <div class="sp-row"><span class="sp-key">FORMAT</span><span class="sp-val">MP3 / OPUS</span></div>
-    <div class="sp-row"><span class="sp-key">SOURCE</span><span class="sp-val">YOUTUBE</span></div>
-    <div class="sp-row"><span class="sp-key">STORAGE</span><span class="sp-val">LOCAL</span></div>
-    <hr class="sp-sep">
-    <div class="sp-row"><span class="sp-key">TRACK</span><span class="sp-val ok">NONE</span></div>
-    <div class="sp-row"><span class="sp-key">NETWORK</span><span class="sp-val ok">OFFLINE</span></div>
-    <div class="sp-row"><span class="sp-key">DATA OUT</span><span class="sp-val ok">ZERO</span></div>
-    <hr class="sp-sep">
-    <div class="sp-row"><span class="sp-key">LICENSE</span><span class="sp-val">EL2</span></div>
-    <div class="sp-row"><span class="sp-key">AUTHOR</span><span class="sp-val">MANIX</span></div>
-    <div class="sp-row"><span class="sp-key">YEAR</span><span class="sp-val">2026</span></div>
-  </div>
-</div>
-
 <div class="wrap">
 
-  <!-- En-tete KITT -->
-  <div class="site-header">
-    <h1>KITT</h1>
-    <div class="sub">KNIGHT INDUSTRIES TWO THOUSAND &nbsp;&middot;&nbsp; FRANCO-BELGE</div>
+  <!-- Barre haute -->
+  <div class="top-bar">
+    <span class="top-brand">KITT FRANCO-BELGE &nbsp;&middot;&nbsp; MODULE AUDIO</span>
+    <a href="/" class="nav-back">&#8592; RETOUR KITT</a>
   </div>
 
-  <a href="/" class="nav-back">&#8592; RETOUR INTERFACE KITT</a>
-
-  <!-- Identite -->
-  <div class="identity">
-    <div class="id-label">MODULE COMPLEMENTAIRE &mdash; AUDIO SYSTEM</div>
-    <div class="id-name">KYRONEXT</div>
-    <div class="id-role">STUDIO &mdash; TELECHARGEUR AUDIO &amp; LECTEUR LOCAL</div>
-    <div class="id-line"></div>
-    <div class="scanner-bar"><div class="scanner-bar-head"></div></div>
+  <!-- Hero statique -->
+  <div class="hero">
+    <div class="hero-eyebrow">KYRONEXT STUDIO</div>
+    <h1 class="hero-title">
+      TELECHARGEUR<br>
+      <span class="dim">AUDIO LOCAL</span>
+    </h1>
+    <div class="hero-sub">BIBLIOTHEQUE &nbsp;&middot;&nbsp; LECTEUR &nbsp;&middot;&nbsp; CONFIDENTIALITE</div>
+    <p class="hero-desc">Application desktop legere pour telecharger des pistes audio depuis YouTube et les ecouter dans une bibliotheque locale. Pensee pour usage personnel, dans le strict respect des droits d&apos;auteur.</p>
   </div>
 
-  <!-- Description -->
-  <p class="intro">
-    <span class="intro-prefix">[ SYSTEME.DESCRIPTION ]</span>
-    Application desktop legere pour telecharger des pistes audio depuis YouTube et les ecouter dans une bibliotheque locale. Pensee pour usage personnel, dans le strict respect des droits d&apos;auteur et des conditions d&apos;utilisation des plateformes sources.
-  </p>
-
-  <!-- ══ BOUTONS CONSERVES EXACTEMENT ══ -->
+  <!-- ══ BOUTONS INTACTS ══ -->
   <div class="btns">
     <a href="https://github.com/on3egs/Kitt-franco-belge/releases/download/v4.0.0/Kyronext-Studio-linux-x86_64" target="_blank" rel="noopener" download class="btn btn-primary">TELECHARGER LINUX PC &darr;</a>
     <a href="https://github.com/on3egs/Kitt-franco-belge/releases/download/kyronext-studio-setup/Kyronext-Studio-Setup.exe" target="_blank" rel="noopener" download class="btn">TELECHARGER WINDOWS &darr;</a>
     <a href="https://github.com/on3egs/Kitt-franco-belge" target="_blank" rel="noopener" class="btn">CODE SOURCE GITHUB &rarr;</a>
   </div>
+  <p class="install-note">Linux PC 64-bit &mdash; apres telechargement&nbsp;: <code>chmod +x Kyronext-Studio-linux-x86_64</code> puis <code>./Kyronext-Studio-linux-x86_64</code>. Jetson/ARM64 necessite un build separe.</p>
 
-  <!-- Note installation style terminal -->
-  <div class="dl-terminal">
-    <div class="dlt-tag">[ TERMINAL.INSTALL ]</div>
-    <p>Linux PC 64-bit Intel/AMD &mdash; apres telechargement&nbsp;: <code>chmod +x Kyronext-Studio-linux-x86_64</code>, puis <code>./Kyronext-Studio-linux-x86_64</code>. Jetson / ARM64 necessite un build Linux ARM64 separe.</p>
+  <div class="rule"></div>
+
+  <!-- Features -->
+  <div class="section-head">
+    <div class="section-label">FONCTIONNALITES</div>
+    <div class="section-title">CE QUE FAIT <b>KYRONEXT</b></div>
   </div>
 
-  <!-- ─── FEATURES ─── -->
-  <div class="sep"><div class="sep-line"></div><div class="sep-label">CARACTERISTIQUES</div><div class="sep-line"></div></div>
-
-  <div class="sect">
-    <div class="sect-tag">MODULES ACTIFS</div>
-    <h4 class="sect-title">CE QUE FAIT <span>KYRONEXT</span></h4>
-  </div>
-
-  <div class="feat-grid">
-    <div class="feat"><div class="feat-inner">
-      <div class="feat-tag">[ MODULE.01 ]</div>
-      <div class="feat-title">TELECHARGEMENT AUDIO</div>
-      <div class="feat-text">Recupere la piste audio d&apos;une video YouTube en format optimise pour ecoute locale. Choix de qualite, metadonnees automatiques.</div>
-      <div class="feat-bar"><div class="feat-bar-fill"></div></div>
-    </div></div>
-    <div class="feat"><div class="feat-inner">
-      <div class="feat-tag">[ MODULE.02 ]</div>
-      <div class="feat-title">BIBLIOTHEQUE LOCALE</div>
-      <div class="feat-text">Organise les fichiers telecharges, recherche rapide, listes de lecture personnalisees, persistance entre sessions.</div>
-      <div class="feat-bar"><div class="feat-bar-fill"></div></div>
-    </div></div>
-    <div class="feat"><div class="feat-inner">
-      <div class="feat-tag">[ MODULE.03 ]</div>
-      <div class="feat-title">LECTEUR INTEGRE</div>
-      <div class="feat-text">Ecoute directe dans l&apos;application sans dependance externe. Controles play / pause / next / shuffle / repeat.</div>
-      <div class="feat-bar"><div class="feat-bar-fill"></div></div>
-    </div></div>
-    <div class="feat"><div class="feat-inner">
-      <div class="feat-tag">[ MODULE.04 ]</div>
-      <div class="feat-title">CONFIDENTIALITE TOTALE</div>
-      <div class="feat-text">Tout reste local sur la machine. Aucune donnee envoyee a un serveur tiers. Pas de tracking. Pas de compte requis.</div>
-      <div class="feat-bar"><div class="feat-bar-fill"></div></div>
-    </div></div>
-  </div>
-
-  <!-- ─── LEGAL ─── -->
-  <div class="sep"><div class="sep-line"></div><div class="sep-label">CADRE LEGAL</div><div class="sep-line"></div></div>
-
-  <div class="sect">
-    <div class="sect-tag">PROTOCOLES ACTIFS</div>
-    <h4 class="sect-title">USAGE <span>RESPONSABLE</span></h4>
-  </div>
-
-  <div class="legal-grid">
-    <div class="legal-panel">
-      <div class="legal-tag">[ PROTOCOL.01 ]</div>
-      <div class="legal-title">DROITS D&apos;AUTEUR</div>
-      <p class="legal-text">Kyronext Studio est un outil neutre. L&apos;utilisateur est seul responsable de l&apos;usage qu&apos;il en fait. Le telechargement de contenus proteges sans autorisation des ayants droit peut etre interdit dans votre juridiction. Limitez votre usage aux contenus dont vous avez acquis les droits, aux oeuvres du domaine public ou distribues sous licence libre.</p>
+  <div class="feat-list">
+    <div class="feat-row">
+      <div>
+        <div class="feat-num">01</div>
+        <div class="feat-name">TELECHARGEMENT AUDIO</div>
+      </div>
+      <div class="feat-body">Recupere la piste audio d&apos;une video YouTube en format optimise pour ecoute locale. Choix de qualite, metadonnees automatiques.</div>
     </div>
-    <div class="legal-panel">
-      <div class="legal-tag">[ PROTOCOL.02 ]</div>
-      <div class="legal-title">CONDITIONS DES PLATEFORMES</div>
-      <p class="legal-text">Les conditions d&apos;utilisation de YouTube et d&apos;autres plateformes evoluent regulierement. L&apos;utilisateur doit s&apos;assurer que son usage de Kyronext Studio reste conforme a ces conditions. L&apos;auteur decline toute responsabilite quant a un usage qui les enfreindrait.</p>
+    <div class="feat-row">
+      <div>
+        <div class="feat-num">02</div>
+        <div class="feat-name">BIBLIOTHEQUE LOCALE</div>
+      </div>
+      <div class="feat-body">Organise les fichiers telecharges, recherche rapide, listes de lecture personnalisees, persistance entre sessions.</div>
     </div>
-    <div class="legal-panel">
-      <div class="legal-tag">[ PROTOCOL.03 ]</div>
-      <div class="legal-title">USAGE PERSONNEL UNIQUEMENT</div>
-      <p class="legal-text">L&apos;application est concue pour un usage strictement personnel, hors lieu public, hors diffusion commerciale, hors redistribution. La revente ou la rediffusion des fichiers obtenus n&apos;est ni l&apos;intention ni l&apos;usage autorise de ce logiciel.</p>
+    <div class="feat-row">
+      <div>
+        <div class="feat-num">03</div>
+        <div class="feat-name">LECTEUR INTEGRE</div>
+      </div>
+      <div class="feat-body">Ecoute directe dans l&apos;application sans dependance externe. Controles play / pause / next / shuffle / repeat.</div>
+    </div>
+    <div class="feat-row">
+      <div>
+        <div class="feat-num">04</div>
+        <div class="feat-name">CONFIDENTIALITE TOTALE</div>
+      </div>
+      <div class="feat-body">Tout reste local sur la machine. Aucune donnee envoyee a un serveur tiers. Pas de tracking. Pas de compte requis.</div>
     </div>
   </div>
 
-  <!-- ─── ECOSYSTEME ─── -->
-  <div class="sep"><div class="sep-line"></div><div class="sep-label">ECOSYSTEME</div><div class="sep-line"></div></div>
+  <div class="rule"></div>
 
-  <div class="sect">
-    <div class="sect-tag">INTEGRATION SYSTEME</div>
-    <h4 class="sect-title">KYRONEXT DANS L&apos;ECOSYSTEME <span>KITT</span></h4>
+  <!-- Legal -->
+  <div class="section-head">
+    <div class="section-label">CADRE LEGAL</div>
+    <div class="section-title">USAGE <b>RESPONSABLE</b></div>
   </div>
 
-  <div class="eco-panel">
-    <p class="intro" style="margin-bottom:0">
-      <span class="intro-prefix">[ SYSTEME.INTEGRATION ]</span>
-      Kyronext Studio est un module complementaire de KITT Franco-Belge. Il prolonge l&apos;experience audio du tableau de bord vocal en offrant une bibliotheque musicale locale pilotable a la voix. Developpe par Manix sur la meme architecture que le serveur Kyronex A.I.
-    </p>
+  <div class="legal-list">
+    <div class="legal-item">
+      <div class="legal-num">DROITS D&apos;AUTEUR</div>
+      <div class="legal-name">CONTENUS PROTEGES</div>
+      <p class="legal-body">Kyronext Studio est un outil neutre. L&apos;utilisateur est seul responsable de l&apos;usage qu&apos;il en fait. Le telechargement de contenus proteges sans autorisation des ayants droit peut etre interdit dans votre juridiction. Limitez votre usage aux contenus dont vous avez acquis les droits, aux oeuvres du domaine public ou distribues sous licence libre.</p>
+    </div>
+    <div class="legal-item">
+      <div class="legal-num">CONDITIONS DES PLATEFORMES</div>
+      <div class="legal-name">YOUTUBE ET AUTRES</div>
+      <p class="legal-body">Les conditions d&apos;utilisation de YouTube et d&apos;autres plateformes evoluent regulierement. L&apos;utilisateur doit s&apos;assurer que son usage reste conforme a ces conditions. L&apos;auteur decline toute responsabilite quant a un usage qui les enfreindrait.</p>
+    </div>
+    <div class="legal-item">
+      <div class="legal-num">USAGE PERSONNEL</div>
+      <div class="legal-name">HORS DIFFUSION COMMERCIALE</div>
+      <p class="legal-body">L&apos;application est concue pour un usage strictement personnel, hors lieu public, hors diffusion commerciale, hors redistribution. La revente ou la rediffusion des fichiers obtenus n&apos;est pas l&apos;usage autorise de ce logiciel.</p>
+    </div>
+  </div>
+
+  <div class="rule"></div>
+
+  <!-- Ecosysteme -->
+  <div class="section-head">
+    <div class="section-label">INTEGRATION</div>
+    <div class="section-title">ECOSYSTEME <b>KITT</b></div>
+  </div>
+
+  <div class="eco-block">
+    <p class="eco-body">Kyronext Studio est un module complementaire de KITT Franco-Belge. Il prolonge l&apos;experience audio du tableau de bord vocal en offrant une bibliotheque musicale locale pilotable a la voix. Developpe par Manix sur la meme architecture que le serveur Kyronex A.I.</p>
   </div>
 
   <!-- Navigation bas -->
@@ -408,10 +266,7 @@ body::after{content:'';position:fixed;top:0;left:0;right:0;bottom:0;background:r
   </div>
 
   <!-- Footer -->
-  <div class="footer">
-    <div class="footer-sep"></div>
-    KYRONEXT STUDIO &nbsp;&middot;&nbsp; MANIX 2026 &nbsp;&middot;&nbsp; KITT FRANCO-BELGE
-  </div>
+  <div class="footer">KYRONEXT STUDIO &nbsp;&middot;&nbsp; MANIX 2026 &nbsp;&middot;&nbsp; KITT FRANCO-BELGE</div>
 
 </div>
 </body>
